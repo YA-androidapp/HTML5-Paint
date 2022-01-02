@@ -1,0 +1,10 @@
+/* Copyright (c) 2022 YA-androidapp(https://github.com/YA-androidapp) All rights reserved. */
+
+html, body {
+    height: 100%;
+}
+
+/* Alerts */
+.alert {
+    display: none;
+}
