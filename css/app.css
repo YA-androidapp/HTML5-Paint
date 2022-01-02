@@ -8,3 +8,26 @@ html, body {
 .alert {
     display: none;
 }
+
+#alerts {
+    position: fixed;
+    width: 800px;
+    z-index: 1000;
+}
+
+#main {
+    z-index: 100;
+}
+
+/* Overlay */
+#overlay {
+    background-color: black;
+    height: 100%;
+    left: 0;
+    opacity: 0.7;
+    pointer-events: auto;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10000;
+}
