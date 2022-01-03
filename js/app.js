@@ -1,5 +1,5 @@
 // Copyright (c) 2022 YA-androidapp(https://github.com/YA-androidapp) All rights reserved.
-window.addEventListener('DOMContentLoaded', (event) => {
+window.addEventListener("DOMContentLoaded", (event) => {
     initializeBootstrap();
     initializeUI();
     loadDefaultImage();
@@ -19,91 +19,68 @@ const hideOverlay = () => {
 
 const initializeBootstrap = () => {
     // Alerts
-    let alertList = document.querySelectorAll('.alert');
+    let alertList = document.querySelectorAll(".alert");
     alertList.forEach(function (alert) {
         new bootstrap.Alert(alert);
     });
 
     const showAlertElem = document.getElementById("show-alert");
     showAlertElem.addEventListener("click", function () {
-        let alertList = document.querySelectorAll('.alert');
+        let alertList = document.querySelectorAll(".alert");
         alertList.forEach(function (alert) {
             alert.classList.add("show");
             alert.style.display = "flex";
         })
     });
 
-    const hideAlertElem = document.getElementById("hide-alert");
-    hideAlertElem.addEventListener("click", function () {
-        let alertList = document.querySelectorAll('.alert');
-        alertList.forEach(function (alert) {
+    const alertCloseButtons = [
+        document.getElementById("info-alert-close"),
+        document.getElementById("copied-alert-close"),
+        document.getElementById("warning-alert-close"),
+        document.getElementById("danger-alert-close")
+    ];
+
+    alertCloseButtons.forEach((element) => {
+        element.addEventListener("click", function () {
+            let alert = element.parentElement;
             alert.classList.remove("show");
             alert.style.display = "none";
-        })
-    });
-
-    const infoAlertClose = document.getElementById("infoAlertClose");
-    infoAlertClose.addEventListener("click", function () {
-        let alert = document.getElementById("infoAlert");
-        alert.classList.remove("show");
-        alert.style.display = "none";
-    });
-
-    const copiedAlertClose = document.getElementById("copied-alert-close");
-    copiedAlertClose.addEventListener("click", function () {
-        let alert = document.getElementById("copied-alert");
-        alert.classList.remove("show");
-        alert.style.display = "none";
-    });
-
-    const warningAlertClose = document.getElementById("warningAlertClose");
-    warningAlertClose.addEventListener("click", function () {
-        let alert = document.getElementById("warningAlert");
-        alert.classList.remove("show");
-        alert.style.display = "none";
-    });
-
-    const dangerAlertClose = document.getElementById("dangerAlertClose");
-    dangerAlertClose.addEventListener("click", function () {
-        let alert = document.getElementById("dangerAlert");
-        alert.classList.remove("show");
-        alert.style.display = "none";
-    });
-
+        });
+    })
 
     // Popovers
-    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+    var popoverTriggerList = [].slice.call(document.querySelectorAll("[data-bs-toggle='popover']"))
     var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
         return new bootstrap.Popover(popoverTriggerEl)
     })
 
     // Toast
-    var toastTrigger = document.getElementById('liveToastBtn');
-    var toastLiveExample = document.getElementById('liveToast');
-    if (toastTrigger) {
-        toastTrigger.addEventListener('click', function () {
-            var toast = new bootstrap.Toast(toastLiveExample);
+    var liveToastButton = document.getElementById("live-toast-button");
+    var liveToast = document.getElementById("live-toast");
+    if (liveToastButton) {
+        liveToastButton.addEventListener("click", function () {
+            var toast = new bootstrap.Toast(liveToast);
             toast.show();
         })
     }
 
     // Tooltips
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll("[data-bs-toggle='tooltip']"))
     var tooltipList = tooltipTriggerList.map((tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl));
 }
 
 const initializeUI = () => {
-    document.getElementById('copyMenu').addEventListener('click', () => {
-        const img = document.getElementById('mainImg');
-        const canvas = document.createElement('canvas');
+    document.getElementById("copy-menu").addEventListener("click", () => {
+        const img = document.getElementById("main-canvas");
+        const canvas = document.createElement("canvas");
         canvas.width = img.naturalWidth;
         canvas.height = img.naturalHeight;
-        const ctx = canvas.getContext('2d');
+        const ctx = canvas.getContext("2d");
         ctx.drawImage(img, 0, 0);
 
         canvas.toBlob(async (blob) => {
             const item = new ClipboardItem({
-                'image/png': blob
+                "image/png": blob
             });
             await navigator.clipboard.write([item]);
 
@@ -113,16 +90,25 @@ const initializeUI = () => {
             alert.style.display = "flex";
         });
     });
+
+    const sidePenSize = document.getElementById("side-pen-size");
+    sidePenSize.title = sidePenSize.value;
+    sidePenSize.addEventListener("input", (event) => {
+        sidePenSize.title = event.target.value;
+    });
+    sidePenSize.addEventListener("change", (event) => {
+        sidePenSize.title = event.target.value;
+    });
 }
 
 const loadDefaultImage = () => {
-    var canvasElem = document.getElementById('mainImg');
+    var mainCanvasElem = document.getElementById("main-canvas");
 
-    if (canvasElem && canvasElem.getContext) {
-        var context = canvasElem.getContext('2d');
+    if (mainCanvasElem && mainCanvasElem.getContext) {
+        var context = mainCanvasElem.getContext("2d");
 
         var img = new Image();
-        img.src = 'img/placeholder.png';
+        img.src = "img/placeholder.png";
         img.onload = function onImageLoad() {
             context.drawImage(img, 0, 0);
         }

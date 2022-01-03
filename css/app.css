@@ -2,6 +2,25 @@
 
 html, body {
     height: 100%;
+    min-height: 800px;
+}
+
+div#content-container{
+    height: calc(100% - 73px);
+    min-height: 727px; /* calc(800px - 73px) */
+}
+
+div#content-row {
+    height: 100%;
+}
+
+div#content-col {
+    height: 100%;
+}
+
+div#sidebar {
+    height: 100%;
+    width: 280px;
 }
 
 /* Alerts */

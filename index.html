@@ -25,9 +25,9 @@
 
     <div id="overlay"></div>
 
-    <button type="button" class="btn btn-primary" id="liveToastBtn">Show live toast</button>
+    <button type="button" class="btn btn-primary" id="live-toast-button">Show live toast</button>
     <div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
-        <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div id="live-toast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header"><svg class="bd-placeholder-img rounded me-2" width="20" height="20"
                     xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice"
                     focusable="false">
@@ -56,13 +56,14 @@
                 <ul class="nav col-12 col-lg-auto me-lg-auto mx-5 mb-2 justify-content-center mb-md-0">
                     <li><a href="#" class="nav-link px-2 link-secondary">New</a></li>
                     <li><a href="#" class="nav-link px-2 link-dark">Open...</a></li>
-                    <li><a id="copyMenu" href="#" class="nav-link px-2 link-dark">Copy</a></li>
+                    <li><a id="copy-menu" href="#" class="nav-link px-2 link-dark">Copy</a></li>
                     <li><a href="#" class="nav-link px-2 link-dark">Save As...</a></li>
                 </ul>
 
                 <div class="dropdown text-end">
                     <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
                         data-bs-toggle="dropdown" aria-expanded="false">
+                        Help
                         <svg class="bi me-2 rounded-circle" width="32" height="32" role="img" aria-label="Profile">
                             <use xlink:href="#person-circle" />
                         </svg>
@@ -75,21 +76,24 @@
         </div>
     </header>
 
-    <div class="container" style="height: calc(100% - 73px - 96px) !important;">
-        <div class="row" style="height: 100%;">
-            <div class="col-3" style="height: 100%;">
-                <div id="sidebar" class="d-flex flex-column flex-shrink-0 p-3 bg-light"
-                    style="width: 280px; height: 100%;">
+    <div id="content-container" class="container">
+        <div id="content-row" class="row">
+            <div id="content-col" class="col-3">
+                <div id="sidebar" class="d-flex flex-column flex-shrink-0 p-3 bg-light">
                     <ul class="nav nav-pills flex-column mb-auto">
                         <li>
-                            <a href="#" class="nav-link link-dark">
+                            <span class="nav-link link-dark">
                                 Pen
-                            </a>
+                                <br>
+                                <input type="range" id="side-pen-size" name="side-pen-size" min="1" max="100" value="3">
+                            </span>
                         </li>
                         <li>
-                            <a href="#" class="nav-link link-dark">
+                            <span class="nav-link link-dark">
                                 Color
-                            </a>
+                                <br>
+                                <input type="color" id="side-color" name="side-color">
+                            </span>
                         </li>
                         <li>
                             <a href="#" class="nav-link link-dark">
@@ -125,10 +129,6 @@
                                 Show alerts
                             </button>
 
-                            <button type="button" class="btn btn-warning position-relative" id="hide-alert">
-                                Clear alerts
-                            </button>
-
                             <div id="alerts">
                                 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
                                     <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
@@ -157,7 +157,7 @@
                                         id="copied-alert-close"></button>
                                 </div>
 
-                                <div class="alert alert-primary alert-dismissible fade" role="alert" id="infoAlert">
+                                <div class="alert alert-primary alert-dismissible fade" role="alert" id="info-alert">
                                     <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img"
                                         aria-label="Info:">
                                         <use xlink:href="#info-fill" />
@@ -166,9 +166,9 @@
                                         An example alert with an icon
                                     </div>
                                     <button type="button" class="btn-close" aria-label="Close"
-                                        id="infoAlertClose"></button>
+                                        id="info-alert-close"></button>
                                 </div>
-                                <div class="alert alert-warning alert-dismissible fade" role="alert" id="warningAlert">
+                                <div class="alert alert-warning alert-dismissible fade" role="alert" id="warning-alert">
                                     <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img"
                                         aria-label="Warning:">
                                         <use xlink:href="#exclamation-triangle-fill" />
@@ -177,9 +177,9 @@
                                         An example warning alert with an icon
                                     </div>
                                     <button type="button" class="btn-close" aria-label="Close"
-                                        id="warningAlertClose"></button>
+                                        id="warning-alert-close"></button>
                                 </div>
-                                <div class="alert alert-danger alert-dismissible fade" role="alert" id="dangerAlert">
+                                <div class="alert alert-danger alert-dismissible fade" role="alert" id="danger-alert">
                                     <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img"
                                         aria-label="Danger:">
                                         <use xlink:href="#exclamation-triangle-fill" />
@@ -188,12 +188,12 @@
                                         An example danger alert with an icon
                                     </div>
                                     <button type="button" class="btn-close" aria-label="Close"
-                                        id="dangerAlertClose"></button>
+                                        id="danger-alert-close"></button>
                                 </div>
                             </div>
 
                             <div id="main" class="main my-5">
-                                <canvas id="mainImg" width="800" height="600"></canvas>
+                                <canvas id="main-canvas" width="800" height="600"></canvas>
 
                             </div>
                         </div>
