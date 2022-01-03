@@ -15,10 +15,6 @@ html, body {
     z-index: 1000;
 }
 
-#main {
-    z-index: 100;
-}
-
 /* Overlay */
 #overlay {
     background-color: black;
@@ -30,4 +26,10 @@ html, body {
     top: 0;
     width: 100%;
     z-index: 10000;
+}
+
+/* Canvas */
+canvas {
+    background-color:#FFFFFF;
+    border: 1px solid #000000;
 }

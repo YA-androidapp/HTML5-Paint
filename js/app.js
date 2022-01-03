@@ -2,6 +2,7 @@
 window.addEventListener('DOMContentLoaded', (event) => {
     initializeBootstrap();
     initializeUI();
+    loadDefaultImage();
     checkTouchFeature();
 });
 
@@ -112,4 +113,18 @@ const initializeUI = () => {
             alert.style.display = "flex";
         });
     });
+}
+
+const loadDefaultImage = () => {
+    var canvasElem = document.getElementById('mainImg');
+
+    if (canvasElem && canvasElem.getContext) {
+        var context = canvasElem.getContext('2d');
+
+        var img = new Image();
+        img.src = 'img/placeholder.png';
+        img.onload = function onImageLoad() {
+            context.drawImage(img, 0, 0);
+        }
+    }
 }
