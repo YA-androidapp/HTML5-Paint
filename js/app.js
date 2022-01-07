@@ -30,7 +30,7 @@ const initializeBootstrap = () => {
         alertList.forEach(function (alert) {
             alert.classList.add("show");
             alert.style.display = "flex";
-        })
+        });
     });
 
     const alertCloseButtons = [
@@ -46,13 +46,13 @@ const initializeBootstrap = () => {
             alert.classList.remove("show");
             alert.style.display = "none";
         });
-    })
+    });
 
     // Popovers
-    var popoverTriggerList = [].slice.call(document.querySelectorAll("[data-bs-toggle='popover']"))
+    var popoverTriggerList = [].slice.call(document.querySelectorAll("[data-bs-toggle='popover']"));
     var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-        return new bootstrap.Popover(popoverTriggerEl)
-    })
+        return new bootstrap.Popover(popoverTriggerEl);
+    });
 
     // Toast
     var liveToastButton = document.getElementById("live-toast-button");
@@ -61,22 +61,31 @@ const initializeBootstrap = () => {
         liveToastButton.addEventListener("click", function () {
             var toast = new bootstrap.Toast(liveToast);
             toast.show();
-        })
+        });
     }
 
     // Tooltips
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll("[data-bs-toggle='tooltip']"))
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll("[data-bs-toggle='tooltip']"));
     var tooltipList = tooltipTriggerList.map((tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl));
 }
 
 const initializeUI = () => {
+    document.getElementById("open-file-button").addEventListener("click", (event) => {
+        let img = document.getElementById("open-file").files[0];
+        let reader = new FileReader();
+        reader.readAsDataURL(img);
+        reader.onload = function () {
+            drawImage(reader.result);
+        }
+    });
+
     document.getElementById("copy-menu").addEventListener("click", () => {
         const img = document.getElementById("main-canvas");
         const canvas = document.createElement("canvas");
         canvas.width = img.naturalWidth;
         canvas.height = img.naturalHeight;
-        const ctx = canvas.getContext("2d");
-        ctx.drawImage(img, 0, 0);
+        const context = canvas.getContext("2d");
+        context.drawImage(img, 0, 0);
 
         canvas.toBlob(async (blob) => {
             const item = new ClipboardItem({
@@ -101,16 +110,20 @@ const initializeUI = () => {
     });
 }
 
-const loadDefaultImage = () => {
-    var mainCanvasElem = document.getElementById("main-canvas");
-
+const drawImage = (url) => {
+    let mainCanvasElem = document.getElementById("main-canvas");
     if (mainCanvasElem && mainCanvasElem.getContext) {
-        var context = mainCanvasElem.getContext("2d");
-
-        var img = new Image();
-        img.src = "img/placeholder.png";
-        img.onload = function onImageLoad() {
-            context.drawImage(img, 0, 0);
+        let context = mainCanvasElem.getContext("2d");
+        let image = new Image();
+        image.src = url;
+        image.onload = () => {
+            // mainCanvasElem.width = image.width
+            // mainCanvasElem.height = image.height
+            context.drawImage(image, 0, 0);
         }
     }
+}
+
+const loadDefaultImage = () => {
+    drawImage("img/placeholder.png");
 }
