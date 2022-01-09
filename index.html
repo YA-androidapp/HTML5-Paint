@@ -65,7 +65,7 @@
     <header class="p-3 mb-3 border-bottom">
         <div class="container">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+                <a href="" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
                     <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
                         <use xlink:href="#bootstrap" />
                     </svg>
@@ -73,11 +73,11 @@
                 </a>
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mx-5 mb-2 justify-content-center mb-md-0">
-                    <li><a href="#" class="nav-link px-2 link-secondary">New</a></li>
-                    <li><a href="#" class="nav-link px-2 link-dark" data-bs-toggle="modal"
-                            data-bs-target="#staticBackdrop">Open...</a></li>
-                    <li><a id="copy-menu" href="#" class="nav-link px-2 link-dark">Copy</a></li>
-                    <li><a href="#" class="nav-link px-2 link-dark">Save As...</a></li>
+                    <li><span id="new-menu" href="#" class="nav-link px-2 link-dark">New</span></li>
+                    <li><span href="#" class="nav-link px-2 link-dark" data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop">Open...</span></li>
+                    <li><span id="copy-menu" href="#" class="nav-link px-2 link-dark">Copy</span></li>
+                    <li><span id="save-as-menu" href="#" class="nav-link px-2 link-dark">Save As...</span></li>
                 </ul>
 
                 <div class="dropdown text-end">
@@ -125,16 +125,6 @@
                                     name="eraser-rectangle">□</button>
                             </span>
                         </li>
-                        <li>
-                            <a href="#" class="nav-link link-dark">
-                                ###
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="nav-link link-dark">
-                                ###
-                            </a>
-                        </li>
                     </ul>
 
                     <div class="container mt-5">
@@ -150,10 +140,6 @@
                 <div class="container">
                     <div class="row">
                         <div class="col">
-                            <button type="button" class="btn btn-primary" id="show-alert">
-                                Show alerts
-                            </button>
-
                             <div id="alerts">
                                 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
                                     <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">

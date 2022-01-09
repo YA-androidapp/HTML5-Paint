@@ -23,6 +23,10 @@ div#sidebar {
     width: 280px;
 }
 
+span.nav-link {
+    cursor: pointer;
+}
+
 /* Alerts */
 .alert {
     display: none;

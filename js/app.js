@@ -1,4 +1,8 @@
 // Copyright (c) 2022 YA-androidapp(https://github.com/YA-androidapp) All rights reserved.
+
+const DEFAULT_IMAGE_PATH = "img/placeholder.png";
+
+
 window.addEventListener("DOMContentLoaded", (event) => {
     initializeBootstrap();
     initializeUI();
@@ -22,15 +26,6 @@ const initializeBootstrap = () => {
     let alertList = document.querySelectorAll(".alert");
     alertList.forEach(function (alert) {
         new bootstrap.Alert(alert);
-    });
-
-    const showAlertElem = document.getElementById("show-alert");
-    showAlertElem.addEventListener("click", function () {
-        let alertList = document.querySelectorAll(".alert");
-        alertList.forEach(function (alert) {
-            alert.classList.add("show");
-            alert.style.display = "flex";
-        });
     });
 
     const alertCloseButtons = [
@@ -82,12 +77,13 @@ const initializeUI = () => {
     document.getElementById("copy-menu").addEventListener("click", () => {
         const img = document.getElementById("main-canvas");
         const canvas = document.createElement("canvas");
-        canvas.width = img.naturalWidth;
-        canvas.height = img.naturalHeight;
+        canvas.width = img.width; // img.naturalWidth
+        canvas.height = img.height; // img.naturalHeight
         const context = canvas.getContext("2d");
         context.drawImage(img, 0, 0);
 
         canvas.toBlob(async (blob) => {
+            // in Firefox: dom.events.asyncClipboard.clipboardItem=true
             const item = new ClipboardItem({
                 "image/png": blob
             });
@@ -97,6 +93,32 @@ const initializeUI = () => {
             alert.classList.remove("show");
             alert.classList.add("show");
             alert.style.display = "flex";
+        });
+    });
+
+    document.getElementById("new-menu").addEventListener("click", () => {
+        loadDefaultImage();
+    });
+
+    document.getElementById("save-as-menu").addEventListener("click", () => {
+        const img = document.getElementById("main-canvas");
+        const canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const context = canvas.getContext("2d");
+        context.drawImage(img, 0, 0);
+
+        canvas.toBlob(async (blob) => {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            document.body.appendChild(a);
+            a.download = formatDateTime(new Date(), 'YYYYMMDDhhmmss') + '.png';
+            a.href = url;
+            a.click();
+            a.remove();
+            setTimeout(() => {
+                URL.revokeObjectURL(url);
+            }, 1E4);
         });
     });
 
@@ -124,6 +146,22 @@ const drawImage = (url) => {
     }
 }
 
+const formatDateTime = (date, format) => {
+    let year_str = date.getFullYear();
+    let month_str = ('0' + date.getMonth()).slice(-2);
+    let day_str = ('0' + date.getDate()).slice(-2);
+    let hour_str = ('0' + date.getHours()).slice(-2);
+    let minute_str = ('0' + date.getMinutes()).slice(-2);
+    let second_str = ('0' + date.getSeconds()).slice(-2);
+
+    return format.replace(/YYYY/g, year_str)
+        .replace(/MM/g, month_str)
+        .replace(/DD/g, day_str)
+        .replace(/hh/g, hour_str)
+        .replace(/mm/g, minute_str)
+        .replace(/ss/g, second_str);
+}
+
 const loadDefaultImage = () => {
-    drawImage("img/placeholder.png");
+    drawImage(DEFAULT_IMAGE_PATH);
 }
