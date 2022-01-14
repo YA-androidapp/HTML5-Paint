@@ -11,9 +11,9 @@ window.addEventListener("DOMContentLoaded", (event) => {
 });
 
 const checkTouchFeature = () => {
-    if (navigator.maxTouchPoints > 0) {
-        hideOverlay();
-    }
+    // if (navigator.maxTouchPoints > 0) {
+    hideOverlay();
+    // }
 }
 
 const hideOverlay = () => {
