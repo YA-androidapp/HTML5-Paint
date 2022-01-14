@@ -13,6 +13,9 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
 const move = (position) => {
     if (isDragging) {
+        context.strokeStyle = document.getElementById("side-color").value;
+        context.lineWidth = document.getElementById("side-pen-size").value;
+
         context.moveTo(lastPosition[0], lastPosition[1]);
         context.lineTo(position[0], position[1]);
         context.stroke();
@@ -22,14 +25,13 @@ const move = (position) => {
 
 const down = (position) => {
     isDragging = true;
+    context.beginPath();
     lastPosition = position;
-
-    context.strokeStyle = document.getElementById("side-color").value;
-    context.lineWidth = document.getElementById("side-pen-size").value;
 }
 
 const up = (position) => {
     move(position);
+    context.closePath();
     isDragging = false;
 }
 
