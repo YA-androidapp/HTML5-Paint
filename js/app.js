@@ -130,6 +130,27 @@ const initializeUI = () => {
     sidePenSize.addEventListener("change", (event) => {
         sidePenSize.title = event.target.value;
     });
+
+    // Color
+    document.getElementById("side-color-black").addEventListener("click", () => {
+        document.getElementById("side-color").value = "#000000";
+    });
+
+    document.getElementById("side-color-white").addEventListener("click", () => {
+        document.getElementById("side-color").value = "#ffffff";
+    });
+
+    document.getElementById("side-color-red").addEventListener("click", () => {
+        document.getElementById("side-color").value = "#ff0000";
+    });
+
+    document.getElementById("side-color-green").addEventListener("click", () => {
+        document.getElementById("side-color").value = "#00ff00";
+    });
+
+    document.getElementById("side-color-blue").addEventListener("click", () => {
+        document.getElementById("side-color").value = "#0000ff";
+    });
 }
 
 const drawImage = (url) => {
