@@ -52,34 +52,68 @@ const init = () => {
     context.lineWidth = document.getElementById("side-pen-size").value;
 
     mainCanvasElem.addEventListener("mousedown", function (e) {
-        down(getPosition(e));
+        let checkElem = document.getElementById("side-bucket");
+        if (checkElem.checked) {
+            const x = e.offsetX || e.layerX;
+            const y = e.offsetY || e.layerY;
+            const hexColorCode = document.getElementById("side-color").value;
+            const bucketFill = new BucketFill(mainCanvasElem);
+            bucketFill.draw(Color.fromHexCode(hexColorCode), x, y);
+
+            checkElem.checked = false;
+        } else {
+            down(getPosition(e));
+        }
     });
 
     mainCanvasElem.addEventListener("mouseup", function (e) {
-        up(getPosition(e));
+        let checkElem = document.getElementById("side-bucket");
+        if (!checkElem.checked) {
+            up(getPosition(e));
+        }
     });
 
     mainCanvasElem.addEventListener("mousemove", function (e) {
-        move(getPosition(e));
+        let checkElem = document.getElementById("side-bucket");
+        if (!checkElem.checked) {
+            move(getPosition(e));
+        }
     });
 
     mainCanvasElem.addEventListener("touchstart", function (e) {
-        if (e.changedTouches.length == 1) {
-            down(getPosition(e.changedTouches[0]));
+        let checkElem = document.getElementById("side-bucket");
+        if (checkElem.checked) {
+            const x = e.offsetX || e.layerX;
+            const y = e.offsetY || e.layerY;
+            const hexColorCode = document.getElementById("side-color").value;
+            const bucketFill = new BucketFill(mainCanvasElem);
+            bucketFill.draw(Color.fromHexCode(hexColorCode), x, y);
+
+            checkElem.checked = false;
+        } else {
+            if (e.changedTouches.length == 1) {
+                down(getPosition(e.changedTouches[0]));
+            }
         }
     });
 
     mainCanvasElem.addEventListener("touchend", function (e) {
-        if (e.changedTouches.length == 1) {
-            up(getPosition(e.changedTouches[0]));
+        let checkElem = document.getElementById("side-bucket");
+        if (!checkElem.checked) {
+            if (e.changedTouches.length == 1) {
+                up(getPosition(e.changedTouches[0]));
+            }
         }
     });
 
     mainCanvasElem.addEventListener("touchmove", function (e) {
         e.preventDefault();
 
-        if (e.changedTouches.length == 1) {
-            move(getPosition(e.changedTouches[0]));
+        let checkElem = document.getElementById("side-bucket");
+        if (!checkElem.checked) {
+            if (e.changedTouches.length == 1) {
+                move(getPosition(e.changedTouches[0]));
+            }
         }
     });
 }
