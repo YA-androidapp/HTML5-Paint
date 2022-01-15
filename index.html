@@ -67,6 +67,26 @@
                             data-bs-target="#staticBackdrop">Open...</span></li>
                     <li><span id="copy-menu" href="#" class="nav-link px-2 link-dark">Copy</span></li>
                     <li><span id="save-as-menu" href="#" class="nav-link px-2 link-dark">Save As...</span></li>
+
+                    <li class="mx-5">&nbsp;</li>
+
+                    <li class="mx-2 d-flex align-items-center">
+                        <input type="range" id="side-pen-size" name="side-pen-size" min="1" max="100" value="3"
+                            title="Size">
+                    </li>
+
+                    <li class="mx-2 d-flex align-items-center">
+                        <input type="color" id="side-color" name="side-color">
+
+                        <button type="button" id="side-color-black" class="btn btn-dark btn-sm">Black</button>
+                        <button type="button" id="side-color-white" class="btn btn-light btn-sm">White</button>
+                        <button type="button" id="side-color-red" class="btn btn-outline-light btn-sm"
+                            style="color: #ff0000;">R</button>
+                        <button type="button" id="side-color-green" class="btn btn-outline-light btn-sm"
+                            style="color: #00ff00;">G</button>
+                        <button type="button" id="side-color-blue" class="btn bbtn-outline-light btn-sm"
+                            style="color: #0000ff;">B</button>
+                    </li>
                 </ul>
 
                 <div class="dropdown text-end">
@@ -87,39 +107,7 @@
 
     <div id="content-container" class="container">
         <div id="content-row" class="row">
-            <div id="content-col" class="col-3">
-                <div id="sidebar" class="d-flex flex-column flex-shrink-0 p-3 bg-light">
-                    <ul class="nav nav-pills flex-column mb-auto">
-                        <li>
-                            <span class="nav-link link-dark">
-                                Pen
-                                <br>
-                                <input type="range" id="side-pen-size" name="side-pen-size" min="1" max="100" value="3">
-                            </span>
-                        </li>
-                        <li>
-                            <span class="nav-link link-dark">
-                                Color
-                                <br>
-                                <input type="color" id="side-color" name="side-color">
-                                <div class="mt-2">
-                                    <button type="button" id="side-color-black"
-                                        class="btn btn-dark btn-sm">Black</button>
-                                    <button type="button" id="side-color-white"
-                                        class="btn btn-light btn-sm">White</button>
-                                    <button type="button" id="side-color-red" class="btn btn-outline-light btn-sm"
-                                        style="color: #ff0000;">R</button>
-                                    <button type="button" id="side-color-green" class="btn btn-outline-light btn-sm"
-                                        style="color: #00ff00;">G</button>
-                                    <button type="button" id="side-color-blue" class="btn bbtn-outline-light btn-sm"
-                                        style="color: #0000ff;">B</button>
-                                </div>
-                            </span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <main class="col-9">
+            <main class="col-12">
                 <div class="container">
                     <div class="row">
                         <div class="col">
