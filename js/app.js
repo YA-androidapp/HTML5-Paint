@@ -50,7 +50,7 @@ const initializeBootstrap = () => {
     });
 
     // Toast
-    var liveToastButton = document.getElementById("live-toast-button");
+    var liveToastButton = document.getElementById("about-menu");
     var liveToast = document.getElementById("live-toast");
     if (liveToastButton) {
         liveToastButton.addEventListener("click", function () {
