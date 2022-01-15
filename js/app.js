@@ -25,10 +25,7 @@ const initializeBootstrap = () => {
     });
 
     const alertCloseButtons = [
-        document.getElementById("info-alert-close"),
-        document.getElementById("copied-alert-close"),
-        document.getElementById("warning-alert-close"),
-        document.getElementById("danger-alert-close")
+        document.getElementById("copied-alert-close")
     ];
 
     alertCloseButtons.forEach((element) => {
