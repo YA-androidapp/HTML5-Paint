@@ -10,9 +10,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
 });
 
 const checkTouchFeature = () => {
-    // if (navigator.maxTouchPoints > 0) {
     hideOverlay();
-    // }
 }
 
 const hideOverlay = () => {
@@ -21,7 +19,6 @@ const hideOverlay = () => {
 }
 
 const initializeBootstrap = () => {
-    // Alerts
     let alertList = document.querySelectorAll(".alert");
     alertList.forEach(function (alert) {
         new bootstrap.Alert(alert);
@@ -42,13 +39,11 @@ const initializeBootstrap = () => {
         });
     });
 
-    // Popovers
     var popoverTriggerList = [].slice.call(document.querySelectorAll("[data-bs-toggle='popover']"));
     var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
         return new bootstrap.Popover(popoverTriggerEl);
     });
 
-    // Toast
     var liveToastButton = document.getElementById("about-menu");
     var liveToast = document.getElementById("live-toast");
     if (liveToastButton) {
@@ -58,7 +53,6 @@ const initializeBootstrap = () => {
         });
     }
 
-    // Tooltips
     var tooltipTriggerList = [].slice.call(document.querySelectorAll("[data-bs-toggle='tooltip']"));
     var tooltipList = tooltipTriggerList.map((tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl));
 }
@@ -120,7 +114,6 @@ const initializeUI = () => {
         sidePenSize.title = event.target.value;
     });
 
-    // Color
     document.getElementById("side-color-black").addEventListener("click", () => {
         document.getElementById("side-color").value = "#000000";
     });
@@ -169,8 +162,6 @@ const drawImage = (url) => {
         let image = new Image();
         image.src = url;
         image.onload = () => {
-            // mainCanvasElem.width = image.width
-            // mainCanvasElem.height = image.height
             context.drawImage(image, 0, 0);
         }
     }
