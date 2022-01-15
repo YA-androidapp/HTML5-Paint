@@ -6,8 +6,8 @@ html, body {
 }
 
 div#content-container{
-    height: calc(100% - 73px);
-    min-height: 727px; /* calc(800px - 73px) */
+    height: calc(95% - 73px);
+    min-height: 687px;
 }
 
 div#content-row {

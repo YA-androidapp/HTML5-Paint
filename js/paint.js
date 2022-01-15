@@ -60,26 +60,27 @@ const init = () => {
     context.lineWidth = document.getElementById("side-pen-size").value;
 
     mainCanvasElem.addEventListener("mousedown", function (e) {
-        log("mousedown" + getPositionString(getPosition(e)));
+        log(e.type + getPositionString(getPosition(e)));
         down(getPosition(e));
     });
 
     mainCanvasElem.addEventListener("mouseup", function (e) {
-        log("mouseup" + getPositionString(getPosition(e)));
+        log(e.type + getPositionString(getPosition(e)));
         up(getPosition(e));
     });
 
     mainCanvasElem.addEventListener("click", function (e) {
-        log("click" + getPositionString(getPosition(e)));
+        log(e.type + getPositionString(getPosition(e)));
     });
 
     mainCanvasElem.addEventListener("mousemove", function (e) {
+        log(e.type + getPositionString(getPosition(e)));
         move(getPosition(e));
     });
 
     mainCanvasElem.addEventListener("touchstart", function (e) {
-        message = "touchstart";
-        e.changedTouches.forEach(function (item) {
+        message = e.type;
+        Array.from(e.changedTouches).forEach(function (item) {
             message += getPositionString(getPosition(item));
         });
         log(message);
@@ -89,16 +90,16 @@ const init = () => {
     });
 
     mainCanvasElem.addEventListener("touchcancel", function (e) {
-        message = "touchcancel";
-        e.changedTouches.forEach(function (item) {
+        message = e.type;
+        Array.from(e.changedTouches).forEach(function (item) {
             message += getPositionString(getPosition(item));
         });
         log(message);
     });
 
     mainCanvasElem.addEventListener("touchend", function (e) {
-        message = "touchend";
-        e.changedTouches.forEach(function (item) {
+        message = e.type;
+        Array.from(e.changedTouches).forEach(function (item) {
             message += getPositionString(getPosition(item));
         });
         log(message);
@@ -108,10 +109,13 @@ const init = () => {
     });
 
     mainCanvasElem.addEventListener("touchmove", function (e) {
-        message = "touchmove";
-        e.changedTouches.forEach(function (item) {
+        e.preventDefault();
+
+        message = e.type;
+        Array.from(e.changedTouches).forEach(function (item) {
             message += getPositionString(getPosition(item));
         });
+        log(message);
         if (e.changedTouches.length == 1) {
             move(getPosition(e.changedTouches[0]));
         }
