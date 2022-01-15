@@ -45,64 +45,31 @@ const getPositionString = (position) => {
     return " (" + position[0] + ", " + position[1] + ")";
 }
 
-const log = (message) => {
-    let current = document.getElementById("message").textContent;
-    message = current + "\n" + message;
-    document.getElementById("message").innerHTML = message;
-}
-
 const init = () => {
-    let message;
-
     context.strokeStyle = document.getElementById("side-color").value;
     context.lineCap = 'round';
     context.lineJoin = 'round';
     context.lineWidth = document.getElementById("side-pen-size").value;
 
     mainCanvasElem.addEventListener("mousedown", function (e) {
-        log(e.type + getPositionString(getPosition(e)));
         down(getPosition(e));
     });
 
     mainCanvasElem.addEventListener("mouseup", function (e) {
-        log(e.type + getPositionString(getPosition(e)));
         up(getPosition(e));
     });
 
-    mainCanvasElem.addEventListener("click", function (e) {
-        log(e.type + getPositionString(getPosition(e)));
-    });
-
     mainCanvasElem.addEventListener("mousemove", function (e) {
-        log(e.type + getPositionString(getPosition(e)));
         move(getPosition(e));
     });
 
     mainCanvasElem.addEventListener("touchstart", function (e) {
-        message = e.type;
-        Array.from(e.changedTouches).forEach(function (item) {
-            message += getPositionString(getPosition(item));
-        });
-        log(message);
         if (e.changedTouches.length == 1) {
             down(getPosition(e.changedTouches[0]));
         }
     });
 
-    mainCanvasElem.addEventListener("touchcancel", function (e) {
-        message = e.type;
-        Array.from(e.changedTouches).forEach(function (item) {
-            message += getPositionString(getPosition(item));
-        });
-        log(message);
-    });
-
     mainCanvasElem.addEventListener("touchend", function (e) {
-        message = e.type;
-        Array.from(e.changedTouches).forEach(function (item) {
-            message += getPositionString(getPosition(item));
-        });
-        log(message);
         if (e.changedTouches.length == 1) {
             up(getPosition(e.changedTouches[0]));
         }
@@ -111,11 +78,6 @@ const init = () => {
     mainCanvasElem.addEventListener("touchmove", function (e) {
         e.preventDefault();
 
-        message = e.type;
-        Array.from(e.changedTouches).forEach(function (item) {
-            message += getPositionString(getPosition(item));
-        });
-        log(message);
         if (e.changedTouches.length == 1) {
             move(getPosition(e.changedTouches[0]));
         }
@@ -124,5 +86,4 @@ const init = () => {
 
 const clear = () => {
     context.clearRect(0, 0, mainCanvasElem.width, mainCanvasElem.height);
-    document.getElementById("message").innerHTML = "";
 }
