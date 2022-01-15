@@ -6,7 +6,6 @@ const DEFAULT_IMAGE_PATH = "img/placeholder.png";
 window.addEventListener("DOMContentLoaded", (event) => {
     initializeBootstrap();
     initializeUI();
-    loadDefaultImage();
     checkTouchFeature();
 });
 
@@ -76,13 +75,8 @@ const initializeUI = () => {
 
     document.getElementById("copy-menu").addEventListener("click", () => {
         const img = document.getElementById("main-canvas");
-        const canvas = document.createElement("canvas");
-        canvas.width = img.width; // img.naturalWidth
-        canvas.height = img.height; // img.naturalHeight
-        const context = canvas.getContext("2d");
-        context.drawImage(img, 0, 0);
 
-        canvas.toBlob(async (blob) => {
+        img.toBlob(async (blob) => {
             // in Firefox: dom.events.asyncClipboard.clipboardItem=true
             const item = new ClipboardItem({
                 "image/png": blob
@@ -97,18 +91,13 @@ const initializeUI = () => {
     });
 
     document.getElementById("new-menu").addEventListener("click", () => {
-        loadDefaultImage();
+        clearCanvas();
     });
 
     document.getElementById("save-as-menu").addEventListener("click", () => {
         const img = document.getElementById("main-canvas");
-        const canvas = document.createElement("canvas");
-        canvas.width = img.width;
-        canvas.height = img.height;
-        const context = canvas.getContext("2d");
-        context.drawImage(img, 0, 0);
 
-        canvas.toBlob(async (blob) => {
+        img.toBlob(async (blob) => {
             const url = URL.createObjectURL(blob);
             const a = document.createElement("a");
             document.body.appendChild(a);
@@ -151,12 +140,30 @@ const initializeUI = () => {
     document.getElementById("side-color-blue").addEventListener("click", () => {
         document.getElementById("side-color").value = "#0000ff";
     });
+
+    clearCanvas();
+}
+
+const clearCanvas = () => {
+    let mainCanvasElem = document.getElementById("main-canvas");
+    if (mainCanvasElem && mainCanvasElem.getContext) {
+        let context = mainCanvasElem.getContext("2d");
+        context.clearRect(0, 0, mainCanvasElem.width, mainCanvasElem.height);
+
+        context.fillStyle = "white";
+        context.fillRect(0, 0, mainCanvasElem.width, mainCanvasElem.height);
+    }
 }
 
 const drawImage = (url) => {
     let mainCanvasElem = document.getElementById("main-canvas");
     if (mainCanvasElem && mainCanvasElem.getContext) {
         let context = mainCanvasElem.getContext("2d");
+        context.clearRect(0, 0, mainCanvasElem.width, mainCanvasElem.height);
+
+        context.fillStyle = "white";
+        context.fillRect(0, 0, mainCanvasElem.width, mainCanvasElem.height);
+
         let image = new Image();
         image.src = url;
         image.onload = () => {
@@ -181,8 +188,4 @@ const formatDateTime = (date, format) => {
         .replace(/hh/g, hour_str)
         .replace(/mm/g, minute_str)
         .replace(/ss/g, second_str);
-}
-
-const loadDefaultImage = () => {
-    drawImage(DEFAULT_IMAGE_PATH);
 }
