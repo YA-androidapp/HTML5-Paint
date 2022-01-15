@@ -74,9 +74,9 @@ const initializeUI = () => {
     });
 
     document.getElementById("copy-menu").addEventListener("click", () => {
-        const img = document.getElementById("main-canvas");
+        const mainCanvasElem = document.getElementById("main-canvas");
 
-        img.toBlob(async (blob) => {
+        mainCanvasElem.toBlob(async (blob) => {
             // in Firefox: dom.events.asyncClipboard.clipboardItem=true
             const item = new ClipboardItem({
                 "image/png": blob
@@ -95,9 +95,9 @@ const initializeUI = () => {
     });
 
     document.getElementById("save-as-menu").addEventListener("click", () => {
-        const img = document.getElementById("main-canvas");
+        const mainCanvasElem = document.getElementById("main-canvas");
 
-        img.toBlob(async (blob) => {
+        mainCanvasElem.toBlob(async (blob) => {
             const url = URL.createObjectURL(blob);
             const a = document.createElement("a");
             document.body.appendChild(a);
@@ -140,6 +140,8 @@ const initializeUI = () => {
     document.getElementById("side-color-blue").addEventListener("click", () => {
         document.getElementById("side-color").value = "#0000ff";
     });
+
+    setCanvasSize();
 
     clearCanvas();
 }
@@ -188,4 +190,17 @@ const formatDateTime = (date, format) => {
         .replace(/hh/g, hour_str)
         .replace(/mm/g, minute_str)
         .replace(/ss/g, second_str);
+}
+
+const setCanvasSize = () => {
+    let mainCanvasElem = document.getElementById("main-canvas");
+    let parentElem = mainCanvasElem.parentElement;
+
+    let h = parentElem.clientHeight,
+        w = parentElem.clientWidth;
+
+    mainCanvasElem.setAttribute("width", w);
+    mainCanvasElem.setAttribute("height", h);
+    mainCanvasElem.style.width = w + "px";
+    mainCanvasElem.style.height = h + "px";
 }
