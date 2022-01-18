@@ -123,12 +123,28 @@ const initializeUI = () => {
         document.getElementById("side-color").value = "#ff0000";
     });
 
+    document.getElementById("side-color-orange").addEventListener("click", () => {
+        document.getElementById("side-color").value = "#ff6600";
+    });
+
+    document.getElementById("side-color-yellow").addEventListener("click", () => {
+        document.getElementById("side-color").value = "#ffff00";
+    });
+
     document.getElementById("side-color-green").addEventListener("click", () => {
         document.getElementById("side-color").value = "#00ff00";
     });
 
+    document.getElementById("side-color-aqua").addEventListener("click", () => {
+        document.getElementById("side-color").value = "#00ffff";
+    });
+
     document.getElementById("side-color-blue").addEventListener("click", () => {
         document.getElementById("side-color").value = "#0000ff";
+    });
+
+    document.getElementById("side-color-magenta").addEventListener("click", () => {
+        document.getElementById("side-color").value = "#ff00ff";
     });
 
     setCanvasSize();
