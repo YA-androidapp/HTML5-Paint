@@ -90,8 +90,10 @@ const initializeUI = () => {
     document.getElementById("paste-menu").addEventListener("click", () => {
         const mainCanvasElem = document.getElementById("main-canvas");
 
+        // TODO: Firefox
         navigator.permissions.query({ name: "clipboard-read" }).then((result) => {
             if (result.state == "granted" || result.state == "prompt") {
+                // in Firefox: dom.events.asyncClipboard.read=true
                 navigator.clipboard.read().then((data) => {
                     data.forEach((item) => {
                         if (item.types.includes("image/png")) {
