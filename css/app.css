@@ -18,13 +18,13 @@ div#content-col {
     height: 100%;
 }
 
+div.dropdown{
+    cursor: pointer;
+}
+
 div#sidebar {
     height: 100%;
     width: 280px;
-}
-
-span.nav-link {
-    cursor: pointer;
 }
 
 /* Alerts */

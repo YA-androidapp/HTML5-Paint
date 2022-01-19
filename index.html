@@ -36,12 +36,12 @@
         </div>
     </div>
 
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="fileOpenModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="fileOpenModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">画像を開く</h5>
+                    <h5 class="modal-title" id="fileOpenModalLabel">画像を開く</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
                 </div>
                 <div class="modal-body">
@@ -55,6 +55,22 @@
         </div>
     </div>
 
+
+    <div class="modal fade" id="localStorageModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="localStorageModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="localStorageModalLabel">ローカルストレージの画像一覧</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="localStorageModalImages"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <header class="p-3 mb-3 border-bottom">
         <div class="container">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -62,15 +78,63 @@
                     Kissatsu
                 </span>
 
-                <ul class="nav col-12 col-lg-auto me-lg-auto mx-5 mb-2 justify-content-center mb-md-0">
-                    <li><span id="new-menu" class="nav-link px-2 link-dark">New</span></li>
-                    <li><span class="nav-link px-2 link-dark" data-bs-toggle="modal"
-                            data-bs-target="#staticBackdrop">Open...</span></li>
-                    <li><span id="copy-menu" href="#" class="nav-link px-2 link-dark">Copy</span></li>
-                    <li><span id="save-as-menu" href="#" class="nav-link px-2 link-dark">Save As...</span></li>
+                <div class="mx-5">
+                    &nbsp;
+                </div>
 
-                    <li class="mx-5">&nbsp;</li>
+                <div class="mx-3 dropdown">
+                    <span class="d-block link-dark dropdown-toggle" id="dropdownHelp" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        File
+                    </span>
+                    <ul class="dropdown-menu text-small" aria-labelledby="dropdownHelp">
+                        <li><span class="dropdown-item" id="new-menu">New</span></li>
 
+                        <li><span class="dropdown-item" data-bs-toggle="modal"
+                                data-bs-target="#fileOpenModal">Open...</span></li>
+                        <li><span class="dropdown-item" id="save-as-menu">Save As...</span></li>
+                    </ul>
+                </div>
+
+                <div class="mx-3 dropdown">
+                    <span class="d-block link-dark dropdown-toggle" id="dropdownLs" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Local storage
+                    </span>
+                    <ul class="dropdown-menu text-small" aria-labelledby="dropdownLs">
+                        <li><span class="dropdown-item" id="read-ls-menu" data-bs-toggle="modal"
+                                data-bs-target="#localStorageModal">Read</span></li>
+                        <li><span class="dropdown-item" id="write-ls-menu">Write</span></li>
+                        <li><span class="dropdown-item" id="clear-ls-menu">Clear</span></li>
+                    </ul>
+                </div>
+
+                <div class="mx-3 dropdown">
+                    <span class="d-block link-dark dropdown-toggle" id="dropdownEdit" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Edit
+                    </span>
+                    <ul class="dropdown-menu text-small" aria-labelledby="dropdownEdit">
+                        <li><span class="dropdown-item" id="copy-menu">Copy</span></li>
+                        <li><span class="dropdown-item" id="paste-menu">Paste</span></li>
+                    </ul>
+                </div>
+
+                <div class="mx-3 dropdown">
+                    <span class="d-block link-dark dropdown-toggle" id="dropdownHelp" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Help
+                    </span>
+                    <ul class="dropdown-menu text-small" aria-labelledby="dropdownHelp">
+                        <li><span class="dropdown-item" id="about-menu">About</span></li>
+                    </ul>
+                </div>
+
+                <div class="mx-5">
+                    &nbsp;
+                </div>
+
+                <ul class="nav col-12 col-lg-auto me-lg-auto justify-content-center mb-md-0">
                     <li class="mx-2 d-flex align-items-center">
                         <input type="range" id="side-pen-size" name="side-pen-size" min="1" max="100" value="3"
                             title="Size">
@@ -107,19 +171,6 @@
                         </div>
                     </li>
                 </ul>
-
-                <div class="dropdown text-end">
-                    <span class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        Help
-                        <svg class="bi me-2 rounded-circle" width="32" height="32" role="img" aria-label="Profile">
-                            <use xlink:href="#person-circle" />
-                        </svg>
-                    </span>
-                    <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                        <li><span class="dropdown-item" id="about-menu">About</span></li>
-                    </ul>
-                </div>
             </div>
         </div>
     </header>
