@@ -27,6 +27,8 @@ const down = (position) => {
     isDragging = true;
     context.beginPath();
     lastPosition = position;
+
+    isManualChangedFromLocalStorage = true;
 }
 
 const up = (position) => {

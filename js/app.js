@@ -3,6 +3,9 @@
 const DEFAULT_IMAGE_PATH = "img/placeholder.png";
 
 
+let isManualChangedFromLocalStorage = false;
+
+
 window.addEventListener("DOMContentLoaded", (event) => {
     initializeBootstrap();
     initializeUI();
@@ -57,12 +60,23 @@ const initializeBootstrap = () => {
 }
 
 const initializeUI = () => {
+    window.addEventListener('beforeunload', (event) => {
+        if (isManualChangedFromLocalStorage) {
+            if (storageAvailable('localStorage')) {
+                const key = formatDateTime(new Date(), 'YYYYMMDDhhmmss');
+
+                const mainCanvasElem = document.getElementById("main-canvas");
+                localStorage[key] = mainCanvasElem.toDataURL();
+            }
+        }
+    });
+
     document.getElementById("open-file-button").addEventListener("click", (event) => {
         let img = document.getElementById("open-file").files[0];
         let reader = new FileReader();
         reader.readAsDataURL(img);
         reader.onload = () => {
-            drawImage(reader.result);
+            openImage(reader.result);
         }
     });
 
@@ -102,7 +116,7 @@ const initializeUI = () => {
                                 const img = new Image()
                                 img.onload = (event) => {
                                     URL.revokeObjectURL(event.target.src);
-                                    context.drawImage(event.target, 0, 0)
+                                    context.drawImage(event.target, 0, 0);
                                 }
                                 img.src = URL.createObjectURL(blob)
                             });
@@ -142,9 +156,10 @@ const initializeUI = () => {
                     localStorageKeys.push(key);
                 }
             }
-            localStorageKeys.sort();
+            localStorageKeys.sort((a, b) => -1 * (a - b));
             localStorageKeys.forEach((item) => {
                 const itemImg = document.createElement("img");
+                itemImg.title = displayDateTimeString(item);
                 itemImg.classList.add("img-thumbnail");
                 itemImg.src = localStorage[item];
                 itemImg.style.width = "20%";
@@ -157,7 +172,8 @@ const initializeUI = () => {
                     const img = new Image()
                     img.onload = (event) => {
                         URL.revokeObjectURL(event.target.src);
-                        context.drawImage(event.target, 0, 0)
+                        context.drawImage(event.target, 0, 0);
+                        isManualChangedFromLocalStorage = false;
                     }
                     img.src = e.target.src;
                 });
@@ -175,12 +191,16 @@ const initializeUI = () => {
 
             const mainCanvasElem = document.getElementById("main-canvas");
             localStorage[key] = mainCanvasElem.toDataURL();
+
+            isManualChangedFromLocalStorage = false;
         }
     });
 
-    document.getElementById("clear-ls-menu").addEventListener("click", () => {
+    document.getElementById("clear-ls-button").addEventListener("click", () => {
         if (storageAvailable('localStorage')) {
             localStorage.clear();
+
+            isManualChangedFromLocalStorage = false;
         }
     });
 
@@ -242,10 +262,12 @@ const clearCanvas = () => {
 
         context.fillStyle = "white";
         context.fillRect(0, 0, mainCanvasElem.width, mainCanvasElem.height);
+
+        isManualChangedFromLocalStorage = false;
     }
 }
 
-const drawImage = (url) => {
+const openImage = (url) => {
     let mainCanvasElem = document.getElementById("main-canvas");
     if (mainCanvasElem && mainCanvasElem.getContext) {
         let context = mainCanvasElem.getContext("2d");
@@ -260,6 +282,15 @@ const drawImage = (url) => {
             context.drawImage(image, 0, 0);
         }
     }
+}
+
+const displayDateTimeString = (dateString) => {
+    return dateString.substring(0, 4) + "/" +
+        dateString.substring(4, 6) + "/" +
+        dateString.substring(6, 8) + " " +
+        dateString.substring(8, 10) + ":" +
+        dateString.substring(10, 12) + ":" +
+        dateString.substring(12, 14)
 }
 
 const formatDateTime = (date, format) => {

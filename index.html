@@ -71,18 +71,26 @@
         </div>
     </div>
 
-    <header class="p-3 mb-3 border-bottom">
-        <div class="container">
-            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                <span class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
-                    Kissatsu
-                </span>
-
-                <div class="mx-5">
-                    &nbsp;
+    <div class="modal fade" id="localStorageClearModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="localStorageClearModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="localStorageClearModalLabel">ローカルストレージをクリア</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="clear-ls-button"
+                        data-bs-dismiss="modal">削除</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                <div class="mx-3 dropdown">
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <div class="d-flex flex-row">
+                <div class="me-2 mb-3 dropdown">
                     <span class="d-block link-dark dropdown-toggle" id="dropdownHelp" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         File
@@ -96,20 +104,21 @@
                     </ul>
                 </div>
 
-                <div class="mx-3 dropdown">
+                <div class="me-2 mb-3 dropdown">
                     <span class="d-block link-dark dropdown-toggle" id="dropdownLs" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         Local storage
                     </span>
                     <ul class="dropdown-menu text-small" aria-labelledby="dropdownLs">
                         <li><span class="dropdown-item" id="read-ls-menu" data-bs-toggle="modal"
-                                data-bs-target="#localStorageModal">Read</span></li>
-                        <li><span class="dropdown-item" id="write-ls-menu">Write</span></li>
-                        <li><span class="dropdown-item" id="clear-ls-menu">Clear</span></li>
+                                data-bs-target="#localStorageModal">Open...</span></li>
+                        <li><span class="dropdown-item" id="write-ls-menu">Save</span></li>
+                        <li><span class="dropdown-item" id="clear-ls-menu" data-bs-toggle="modal"
+                                data-bs-target="#localStorageClearModal">Clear</span></li>
                     </ul>
                 </div>
 
-                <div class="mx-3 dropdown">
+                <div class="me-2 mb-3 dropdown">
                     <span class="d-block link-dark dropdown-toggle" id="dropdownEdit" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         Edit
@@ -120,7 +129,7 @@
                     </ul>
                 </div>
 
-                <div class="mx-3 dropdown">
+                <div class="me-2 mb-3 dropdown">
                     <span class="d-block link-dark dropdown-toggle" id="dropdownHelp" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         Help
@@ -129,51 +138,44 @@
                         <li><span class="dropdown-item" id="about-menu">About</span></li>
                     </ul>
                 </div>
+            </div>
 
-                <div class="mx-5">
-                    &nbsp;
+            <div class="d-flex flex-row-reverse">
+                <div class="mx-2 mb-3 d-flex align-items-center">
+                    <input type="range" id="side-pen-size" name="side-pen-size" min="1" max="100" value="3"
+                        title="Size">
                 </div>
 
-                <ul class="nav col-12 col-lg-auto me-lg-auto justify-content-center mb-md-0">
-                    <li class="mx-2 d-flex align-items-center">
-                        <input type="range" id="side-pen-size" name="side-pen-size" min="1" max="100" value="3"
-                            title="Size">
-                    </li>
+                <div class="mx-2 mb-3 d-flex align-items-center">
+                    <input type="color" id="side-color" name="side-color">
 
-                    <li class="mx-2 d-flex align-items-center">
-                        <input type="color" id="side-color" name="side-color">
+                    <button type="button" id="side-color-black" class="btn btn-dark btn-sm">B</button>
+                    <button type="button" id="side-color-white" class="btn btn-light btn-sm">W</button>
+                    <button type="button" id="side-color-red" class="btn btn-outline-light btn-sm"
+                        style="color: #ff0000;">R</button>
+                    <button type="button" id="side-color-orange" class="btn btn-outline-light btn-sm"
+                        style="color: #ff6600;">O</button>
+                    <button type="button" id="side-color-yellow" class="btn btn-outline-light btn-sm"
+                        style="color: #ffff00;">Y</button>
+                    <button type="button" id="side-color-green" class="btn btn-outline-light btn-sm"
+                        style="color: #00ff00;">G</button>
+                    <button type="button" id="side-color-aqua" class="btn btn-outline-light btn-sm"
+                        style="color: #00ffff;">A</button>
+                    <button type="button" id="side-color-blue" class="btn btn-outline-light btn-sm"
+                        style="color: #0000ff;">B</button>
+                    <button type="button" id="side-color-magenta" class="btn btn-outline-light btn-sm"
+                        style="color: #ff00ff;">M</button>
 
-                        <button type="button" id="side-color-black" class="btn btn-dark btn-sm">Black</button>
-                        <button type="button" id="side-color-white" class="btn btn-light btn-sm">White</button>
-                        <button type="button" id="side-color-red" class="btn btn-outline-light btn-sm"
-                            style="color: #ff0000;">R</button>
-                        <button type="button" id="side-color-orange" class="btn btn-outline-light btn-sm"
-                            style="color: #ff6600;">O</button>
-                        <button type="button" id="side-color-yellow" class="btn btn-outline-light btn-sm"
-                            style="color: #ffff00;">Y</button>
-                        <button type="button" id="side-color-green" class="btn btn-outline-light btn-sm"
-                            style="color: #00ff00;">G</button>
-                        <button type="button" id="side-color-aqua" class="btn btn-outline-light btn-sm"
-                            style="color: #00ffff;">A</button>
-                        <button type="button" id="side-color-blue" class="btn btn-outline-light btn-sm"
-                            style="color: #0000ff;">B</button>
-                        <button type="button" id="side-color-magenta" class="btn btn-outline-light btn-sm"
-                            style="color: #ff00ff;">M</button>
-                    </li>
-
-                    <li class="mx-2 d-flex align-items-center">
-                        <div class="form-check form-check-inline form-switch">
-                            <input class="form-check-input" type="checkbox" role="switch" id="side-bucket"
-                                value="bucket">
-                            <label class="form-check-label" for="side-bucket">
-                                <i class="bi bi-bucket-fill"></i>
-                            </label>
-                        </div>
-                    </li>
-                </ul>
+                    <div class="form-check form-check-inline form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="side-bucket" value="bucket">
+                        <label class="form-check-label" for="side-bucket">
+                            <i class="bi bi-bucket-fill"></i>
+                        </label>
+                    </div>
+                </div>
             </div>
         </div>
-    </header>
+    </nav>
 
     <main>
         <div id="alerts">
