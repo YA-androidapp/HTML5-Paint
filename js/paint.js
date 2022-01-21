@@ -10,39 +10,11 @@ window.addEventListener("DOMContentLoaded", (event) => {
 });
 
 
-const move = (position) => {
-    if (isDragging) {
-        const mainCanvasElem = document.getElementById("main-canvas");
-        const context = mainCanvasElem.getContext("2d");
-
-        context.strokeStyle = document.getElementById("side-color").value;
-        context.lineWidth = document.getElementById("side-pen-size").value;
-
-        context.moveTo(lastPosition[0], lastPosition[1]);
-        context.lineTo(position[0], position[1]);
-        context.stroke();
-        lastPosition = position;
-    }
-}
-
-const down = (position) => {
+const clear = () => {
     const mainCanvasElem = document.getElementById("main-canvas");
     const context = mainCanvasElem.getContext("2d");
 
-    isDragging = true;
-    context.beginPath();
-    lastPosition = position;
-
-    isManualChangedFromLocalStorage = true;
-}
-
-const up = (position) => {
-    const mainCanvasElem = document.getElementById("main-canvas");
-    const context = mainCanvasElem.getContext("2d");
-
-    move(position);
-    context.closePath();
-    isDragging = false;
+    context.clearRect(0, 0, mainCanvasElem.width, mainCanvasElem.height);
 }
 
 const getPosition = (e) => {
@@ -77,21 +49,21 @@ const init = () => {
 
             checkElem.checked = false;
         } else {
-            down(getPosition(e));
+            mouseDown(getPosition(e));
         }
     });
 
     mainCanvasElem.addEventListener("mouseup", function (e) {
         let checkElem = document.getElementById("side-bucket");
         if (!checkElem.checked) {
-            up(getPosition(e));
+            mouseUp(getPosition(e));
         }
     });
 
     mainCanvasElem.addEventListener("mousemove", function (e) {
         let checkElem = document.getElementById("side-bucket");
         if (!checkElem.checked) {
-            move(getPosition(e));
+            mouseMove(getPosition(e));
         }
     });
 
@@ -107,7 +79,7 @@ const init = () => {
             checkElem.checked = false;
         } else {
             if (e.changedTouches.length == 1) {
-                down(getPosition(e.changedTouches[0]));
+                mouseDown(getPosition(e.changedTouches[0]));
             }
         }
     });
@@ -116,7 +88,7 @@ const init = () => {
         let checkElem = document.getElementById("side-bucket");
         if (!checkElem.checked) {
             if (e.changedTouches.length == 1) {
-                up(getPosition(e.changedTouches[0]));
+                mouseUp(getPosition(e.changedTouches[0]));
             }
         }
     });
@@ -127,15 +99,43 @@ const init = () => {
         let checkElem = document.getElementById("side-bucket");
         if (!checkElem.checked) {
             if (e.changedTouches.length == 1) {
-                move(getPosition(e.changedTouches[0]));
+                mouseMove(getPosition(e.changedTouches[0]));
             }
         }
     });
 }
 
-const clear = () => {
+const mouseDown = (position) => {
     const mainCanvasElem = document.getElementById("main-canvas");
     const context = mainCanvasElem.getContext("2d");
 
-    context.clearRect(0, 0, mainCanvasElem.width, mainCanvasElem.height);
+    isDragging = true;
+    context.beginPath();
+    lastPosition = position;
+
+    isManualChangedFromLocalStorage = true;
+}
+
+const mouseMove = (position) => {
+    if (isDragging) {
+        const mainCanvasElem = document.getElementById("main-canvas");
+        const context = mainCanvasElem.getContext("2d");
+
+        context.strokeStyle = document.getElementById("side-color").value;
+        context.lineWidth = document.getElementById("side-pen-size").value;
+
+        context.moveTo(lastPosition[0], lastPosition[1]);
+        context.lineTo(position[0], position[1]);
+        context.stroke();
+        lastPosition = position;
+    }
+}
+
+const mouseUp = (position) => {
+    const mainCanvasElem = document.getElementById("main-canvas");
+    const context = mainCanvasElem.getContext("2d");
+
+    mouseMove(position);
+    context.closePath();
+    isDragging = false;
 }
