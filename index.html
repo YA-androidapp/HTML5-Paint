@@ -149,22 +149,33 @@
                 <div class="mx-2 mb-3 d-flex align-items-center">
                     <input type="color" id="side-color" name="side-color">
 
-                    <button type="button" id="side-color-black" class="btn btn-dark btn-sm">B</button>
-                    <button type="button" id="side-color-white" class="btn btn-light btn-sm">W</button>
-                    <button type="button" id="side-color-red" class="btn btn-outline-light btn-sm"
-                        style="color: #ff0000;">R</button>
-                    <button type="button" id="side-color-orange" class="btn btn-outline-light btn-sm"
-                        style="color: #ff6600;">O</button>
-                    <button type="button" id="side-color-yellow" class="btn btn-outline-light btn-sm"
-                        style="color: #ffff00;">Y</button>
-                    <button type="button" id="side-color-green" class="btn btn-outline-light btn-sm"
-                        style="color: #00ff00;">G</button>
-                    <button type="button" id="side-color-aqua" class="btn btn-outline-light btn-sm"
-                        style="color: #00ffff;">A</button>
-                    <button type="button" id="side-color-blue" class="btn btn-outline-light btn-sm"
-                        style="color: #0000ff;">B</button>
-                    <button type="button" id="side-color-magenta" class="btn btn-outline-light btn-sm"
-                        style="color: #ff00ff;">M</button>
+                    <button class="btn btn-outline-secondary btn-sm ms-1 me-2" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseColorButtons" aria-expanded="false"
+                        aria-controls="collapseColorButtons">
+                        &gt;
+                    </button>
+                    <div class="collapse collapse-horizontal" id="collapseColorButtons">
+                        <div class="card card-body p-0" style="width: 300px;">
+                            <p class="m-0">
+                                <button type="button" id="side-color-black" class="btn btn-dark btn-sm">B</button>
+                                <button type="button" id="side-color-white" class="btn btn-light btn-sm">W</button>
+                                <button type="button" id="side-color-red" class="btn btn-outline-light btn-sm"
+                                    style="color: #ff0000;">R</button>
+                                <button type="button" id="side-color-orange" class="btn btn-outline-light btn-sm"
+                                    style="color: #ff6600;">O</button>
+                                <button type="button" id="side-color-yellow" class="btn btn-outline-light btn-sm"
+                                    style="color: #ffff00;">Y</button>
+                                <button type="button" id="side-color-green" class="btn btn-outline-light btn-sm"
+                                    style="color: #00ff00;">G</button>
+                                <button type="button" id="side-color-aqua" class="btn btn-outline-light btn-sm"
+                                    style="color: #00ffff;">A</button>
+                                <button type="button" id="side-color-blue" class="btn btn-outline-light btn-sm"
+                                    style="color: #0000ff;">B</button>
+                                <button type="button" id="side-color-magenta" class="btn btn-outline-light btn-sm"
+                                    style="color: #ff00ff;">M</button>
+                            </p>
+                        </div>
+                    </div>
 
                     <div class="form-check form-check-inline form-switch">
                         <input class="form-check-input" type="checkbox" role="switch" id="side-bucket" value="bucket">

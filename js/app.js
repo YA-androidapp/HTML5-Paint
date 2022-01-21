@@ -61,14 +61,7 @@ const initializeBootstrap = () => {
 
 const initializeUI = () => {
     window.addEventListener('beforeunload', (event) => {
-        if (isManualChangedFromLocalStorage) {
-            if (storageAvailable('localStorage')) {
-                const key = formatDateTime(new Date(), 'YYYYMMDDhhmmss');
-
-                const mainCanvasElem = document.getElementById("main-canvas");
-                localStorage[key] = mainCanvasElem.toDataURL();
-            }
-        }
+        saveToLocalStorage();
     });
 
     document.getElementById("open-file-button").addEventListener("click", (event) => {
@@ -104,27 +97,30 @@ const initializeUI = () => {
     document.getElementById("paste-menu").addEventListener("click", () => {
         const mainCanvasElem = document.getElementById("main-canvas");
 
-        // TODO: Firefox
-        navigator.permissions.query({ name: "clipboard-read" }).then((result) => {
-            if (result.state == "granted" || result.state == "prompt") {
-                // in Firefox: dom.events.asyncClipboard.read=true
-                navigator.clipboard.read().then((data) => {
-                    data.forEach((item) => {
-                        if (item.types.includes("image/png")) {
-                            item.getType("image/png").then((blob) => {
-                                const context = mainCanvasElem.getContext('2d')
-                                const img = new Image()
-                                img.onload = (event) => {
-                                    URL.revokeObjectURL(event.target.src);
-                                    context.drawImage(event.target, 0, 0);
-                                }
-                                img.src = URL.createObjectURL(blob)
-                            });
-                        }
+        try {
+            navigator.permissions.query({ name: "clipboard-read" }).then((result) => {
+                if (result.state == "granted" || result.state == "prompt") {
+                    navigator.clipboard.read().then((data) => {
+                        data.forEach((item) => {
+                            if (item.types.includes("image/png")) {
+                                item.getType("image/png").then((blob) => {
+                                    const context = mainCanvasElem.getContext('2d')
+                                    const img = new Image()
+                                    img.onload = (event) => {
+                                        URL.revokeObjectURL(event.target.src);
+                                        context.drawImage(event.target, 0, 0);
+                                    }
+                                    img.src = URL.createObjectURL(blob)
+                                });
+                            }
+                        });
                     });
-                });
-            }
-        });
+                }
+            });
+        } catch (err) {
+            // TODO: Firefox
+
+        }
     });
 
     document.getElementById("save-as-menu").addEventListener("click", () => {
@@ -186,14 +182,7 @@ const initializeUI = () => {
     });
 
     document.getElementById("write-ls-menu").addEventListener("click", () => {
-        if (storageAvailable('localStorage')) {
-            const key = formatDateTime(new Date(), 'YYYYMMDDhhmmss');
-
-            const mainCanvasElem = document.getElementById("main-canvas");
-            localStorage[key] = mainCanvasElem.toDataURL();
-
-            isManualChangedFromLocalStorage = false;
-        }
+        saveToLocalStorage(true);
     });
 
     document.getElementById("clear-ls-button").addEventListener("click", () => {
@@ -255,20 +244,20 @@ const initializeUI = () => {
 }
 
 const clearCanvas = () => {
-    let mainCanvasElem = document.getElementById("main-canvas");
+    saveToLocalStorage();
+
+    const mainCanvasElem = document.getElementById("main-canvas");
     if (mainCanvasElem && mainCanvasElem.getContext) {
         let context = mainCanvasElem.getContext("2d");
         context.clearRect(0, 0, mainCanvasElem.width, mainCanvasElem.height);
 
         context.fillStyle = "white";
         context.fillRect(0, 0, mainCanvasElem.width, mainCanvasElem.height);
-
-        isManualChangedFromLocalStorage = false;
     }
 }
 
 const openImage = (url) => {
-    let mainCanvasElem = document.getElementById("main-canvas");
+    const mainCanvasElem = document.getElementById("main-canvas");
     if (mainCanvasElem && mainCanvasElem.getContext) {
         let context = mainCanvasElem.getContext("2d");
         context.clearRect(0, 0, mainCanvasElem.width, mainCanvasElem.height);
@@ -309,12 +298,24 @@ const formatDateTime = (date, format) => {
         .replace(/ss/g, second_str);
 }
 
-const setCanvasSize = () => {
-    let mainCanvasElem = document.getElementById("main-canvas");
-    let parentElem = mainCanvasElem.parentElement;
+const saveToLocalStorage = (forceUpdate = false) => {
+    if (forceUpdate || isManualChangedFromLocalStorage) {
+        if (storageAvailable('localStorage')) {
+            const key = formatDateTime(new Date(), 'YYYYMMDDhhmmss');
 
-    let h = parentElem.clientHeight,
-        w = parentElem.clientWidth;
+            const mainCanvasElem = document.getElementById("main-canvas");
+            if (mainCanvasElem) {
+                localStorage[key] = mainCanvasElem.toDataURL();
+            }
+        }
+    }
+}
+
+const setCanvasSize = () => {
+    const mainCanvasElem = document.getElementById("main-canvas");
+    const parentElem = mainCanvasElem.parentElement;
+    const h = parentElem.clientHeight;
+    const w = parentElem.clientWidth;
 
     mainCanvasElem.setAttribute("width", w);
     mainCanvasElem.setAttribute("height", h);

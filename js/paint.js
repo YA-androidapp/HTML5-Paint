@@ -1,7 +1,6 @@
 // Copyright (c) 2022 YA-androidapp(https://github.com/YA-androidapp) All rights reserved.
 
-let mainCanvasElem = document.getElementById("main-canvas");
-let context = mainCanvasElem.getContext("2d");
+
 let isDragging = false;
 let lastPosition;
 
@@ -13,6 +12,9 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
 const move = (position) => {
     if (isDragging) {
+        const mainCanvasElem = document.getElementById("main-canvas");
+        const context = mainCanvasElem.getContext("2d");
+
         context.strokeStyle = document.getElementById("side-color").value;
         context.lineWidth = document.getElementById("side-pen-size").value;
 
@@ -24,6 +26,9 @@ const move = (position) => {
 }
 
 const down = (position) => {
+    const mainCanvasElem = document.getElementById("main-canvas");
+    const context = mainCanvasElem.getContext("2d");
+
     isDragging = true;
     context.beginPath();
     lastPosition = position;
@@ -32,12 +37,17 @@ const down = (position) => {
 }
 
 const up = (position) => {
+    const mainCanvasElem = document.getElementById("main-canvas");
+    const context = mainCanvasElem.getContext("2d");
+
     move(position);
     context.closePath();
     isDragging = false;
 }
 
 const getPosition = (e) => {
+    const mainCanvasElem = document.getElementById("main-canvas");
+
     let x = e.clientX - mainCanvasElem.getBoundingClientRect().left,
         y = e.clientY - mainCanvasElem.getBoundingClientRect().top;
     return [x, y];
@@ -48,6 +58,9 @@ const getPositionString = (position) => {
 }
 
 const init = () => {
+    const mainCanvasElem = document.getElementById("main-canvas");
+    const context = mainCanvasElem.getContext("2d");
+
     context.strokeStyle = document.getElementById("side-color").value;
     context.lineCap = 'round';
     context.lineJoin = 'round';
@@ -121,5 +134,8 @@ const init = () => {
 }
 
 const clear = () => {
+    const mainCanvasElem = document.getElementById("main-canvas");
+    const context = mainCanvasElem.getContext("2d");
+
     context.clearRect(0, 0, mainCanvasElem.width, mainCanvasElem.height);
 }
