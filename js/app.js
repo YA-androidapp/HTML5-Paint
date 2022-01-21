@@ -53,15 +53,30 @@ const initializeBootstrap = () => {
         });
     }
 
-    localStorageModal = new bootstrap.Modal(document.getElementById('localStorageModal'), { backdrop: true });
+    localStorageModal = new bootstrap.Modal(document.getElementById("localStorageModal"), { backdrop: true });
 
     var tooltipTriggerList = [].slice.call(document.querySelectorAll("[data-bs-toggle='tooltip']"));
     var tooltipList = tooltipTriggerList.map((tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl));
 }
 
 const initializeUI = () => {
-    window.addEventListener('beforeunload', (event) => {
+    window.addEventListener("beforeunload", (event) => {
         saveToLocalStorage();
+    });
+
+    document.addEventListener("keydown", (event) => {
+        if (event.ctrlKey === true) {
+            switch (event.key.toLowerCase()) {
+                case "c":
+                    copyImage();
+                    return false;
+                case "v":
+                    pasteImage();
+                    return false;
+                default:
+                    break;
+            }
+        }
     });
 
     document.getElementById("open-file-button").addEventListener("click", (event) => {
@@ -74,20 +89,7 @@ const initializeUI = () => {
     });
 
     document.getElementById("copy-menu").addEventListener("click", () => {
-        const mainCanvasElem = document.getElementById("main-canvas");
-
-        mainCanvasElem.toBlob(async (blob) => {
-            // in Firefox: dom.events.asyncClipboard.clipboardItem=true
-            const item = new ClipboardItem({
-                "image/png": blob
-            });
-            await navigator.clipboard.write([item]);
-
-            let alert = document.getElementById("copied-alert");
-            alert.classList.remove("show");
-            alert.classList.add("show");
-            alert.style.display = "flex";
-        });
+        copyImage();
     });
 
     document.getElementById("new-menu").addEventListener("click", () => {
@@ -95,32 +97,7 @@ const initializeUI = () => {
     });
 
     document.getElementById("paste-menu").addEventListener("click", () => {
-        const mainCanvasElem = document.getElementById("main-canvas");
-
-        try {
-            navigator.permissions.query({ name: "clipboard-read" }).then((result) => {
-                if (result.state == "granted" || result.state == "prompt") {
-                    navigator.clipboard.read().then((data) => {
-                        data.forEach((item) => {
-                            if (item.types.includes("image/png")) {
-                                item.getType("image/png").then((blob) => {
-                                    const context = mainCanvasElem.getContext('2d')
-                                    const img = new Image()
-                                    img.onload = (event) => {
-                                        URL.revokeObjectURL(event.target.src);
-                                        context.drawImage(event.target, 0, 0);
-                                    }
-                                    img.src = URL.createObjectURL(blob)
-                                });
-                            }
-                        });
-                    });
-                }
-            });
-        } catch (err) {
-            // TODO: Firefox
-
-        }
+        pasteImage()
     });
 
     document.getElementById("save-as-menu").addEventListener("click", () => {
@@ -130,7 +107,7 @@ const initializeUI = () => {
             const url = URL.createObjectURL(blob);
             const a = document.createElement("a");
             document.body.appendChild(a);
-            a.download = formatDateTime(new Date(), 'YYYYMMDDhhmmss') + '.png';
+            a.download = formatDateTime(new Date(), "YYYYMMDDhhmmss") + ".png";
             a.href = url;
             a.click();
             a.remove();
@@ -141,10 +118,10 @@ const initializeUI = () => {
     });
 
     document.getElementById("read-ls-menu").addEventListener("click", () => {
-        if (storageAvailable('localStorage')) {
+        if (storageAvailable("localStorage")) {
             let localStorageKeys = [];
 
-            const imageArea = document.getElementById('localStorageModalImages');
+            const imageArea = document.getElementById("localStorageModalImages");
             imageArea.innerHTML = "";
 
             for (key in localStorage) {
@@ -164,7 +141,8 @@ const initializeUI = () => {
                 itemImg.setAttribute("aria-label", "Close");
 
                 itemImg.addEventListener("click", (e) => {
-                    const context = mainCanvasElem.getContext('2d')
+                    const mainCanvasElem = document.getElementById("main-canvas");
+                    const context = mainCanvasElem.getContext("2d")
                     const img = new Image()
                     img.onload = (event) => {
                         URL.revokeObjectURL(event.target.src);
@@ -186,7 +164,7 @@ const initializeUI = () => {
     });
 
     document.getElementById("clear-ls-button").addEventListener("click", () => {
-        if (storageAvailable('localStorage')) {
+        if (storageAvailable("localStorage")) {
             localStorage.clear();
 
             isManualChangedFromLocalStorage = false;
@@ -284,11 +262,11 @@ const displayDateTimeString = (dateString) => {
 
 const formatDateTime = (date, format) => {
     let year_str = date.getFullYear();
-    let month_str = ('0' + date.getMonth()).slice(-2);
-    let day_str = ('0' + date.getDate()).slice(-2);
-    let hour_str = ('0' + date.getHours()).slice(-2);
-    let minute_str = ('0' + date.getMinutes()).slice(-2);
-    let second_str = ('0' + date.getSeconds()).slice(-2);
+    let month_str = ("0" + date.getMonth()).slice(-2);
+    let day_str = ("0" + date.getDate()).slice(-2);
+    let hour_str = ("0" + date.getHours()).slice(-2);
+    let minute_str = ("0" + date.getMinutes()).slice(-2);
+    let second_str = ("0" + date.getSeconds()).slice(-2);
 
     return format.replace(/YYYY/g, year_str)
         .replace(/MM/g, month_str)
@@ -300,8 +278,8 @@ const formatDateTime = (date, format) => {
 
 const saveToLocalStorage = (forceUpdate = false) => {
     if (forceUpdate || isManualChangedFromLocalStorage) {
-        if (storageAvailable('localStorage')) {
-            const key = formatDateTime(new Date(), 'YYYYMMDDhhmmss');
+        if (storageAvailable("localStorage")) {
+            const key = formatDateTime(new Date(), "YYYYMMDDhhmmss");
 
             const mainCanvasElem = document.getElementById("main-canvas");
             if (mainCanvasElem) {
@@ -327,7 +305,7 @@ const storageAvailable = (type) => {
     var storage;
     try {
         storage = window[type];
-        var x = '__storage_test__';
+        var x = "__storage_test__";
         storage.setItem(x, x);
         storage.removeItem(x);
         return true;
@@ -336,8 +314,56 @@ const storageAvailable = (type) => {
         return e instanceof DOMException && (
             e.code === 22 ||
             e.code === 1014 ||
-            e.name === 'QuotaExceededError' ||
-            e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
+            e.name === "QuotaExceededError" ||
+            e.name === "NS_ERROR_DOM_QUOTA_REACHED") &&
             (storage && storage.length !== 0);
+    }
+}
+
+
+
+const copyImage = () => {
+    const mainCanvasElem = document.getElementById("main-canvas");
+
+    mainCanvasElem.toBlob(async (blob) => {
+        // in Firefox: dom.events.asyncClipboard.clipboardItem=true
+        const item = new ClipboardItem({
+            "image/png": blob
+        });
+        await navigator.clipboard.write([item]);
+
+        let alert = document.getElementById("copied-alert");
+        alert.classList.remove("show");
+        alert.classList.add("show");
+        alert.style.display = "flex";
+    });
+}
+
+const pasteImage = () => {
+    const mainCanvasElem = document.getElementById("main-canvas");
+
+    try {
+        navigator.permissions.query({ name: "clipboard-read" }).then((result) => {
+            if (result.state == "granted" || result.state == "prompt") {
+                navigator.clipboard.read().then((data) => {
+                    data.forEach((item) => {
+                        if (item.types.includes("image/png")) {
+                            item.getType("image/png").then((blob) => {
+                                const context = mainCanvasElem.getContext("2d")
+                                const img = new Image()
+                                img.onload = (event) => {
+                                    URL.revokeObjectURL(event.target.src);
+                                    context.drawImage(event.target, 0, 0);
+                                }
+                                img.src = URL.createObjectURL(blob)
+                            });
+                        }
+                    });
+                });
+            }
+        });
+    } catch (err) {
+        // TODO: Firefox
+
     }
 }
