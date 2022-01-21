@@ -20,7 +20,7 @@ const clearCanvas = () => {
         let context = mainCanvasElem.getContext("2d");
         context.clearRect(0, 0, mainCanvasElem.width, mainCanvasElem.height);
 
-        context.fillStyle = "white";
+        context.fillStyle = "rgba(0, 0, 0, 0)";
         context.fillRect(0, 0, mainCanvasElem.width, mainCanvasElem.height);
     }
 }
@@ -79,7 +79,8 @@ const initializeBootstrap = () => {
     });
 
     const alertCloseButtons = [
-        document.getElementById("copied-alert-close")
+        document.getElementById("copied-alert-close"),
+        document.getElementById("paste-alert-close")
     ];
 
     alertCloseButtons.forEach((element) => {
@@ -129,21 +130,35 @@ const initializeUI = () => {
                     return false;
                 case "o":
                     event.preventDefault();
-
-                    // #fileOpenModal
                     fileOpenModal.show();
-
                     return false;
                 case "s":
                     event.preventDefault();
                     saveImage();
                     return false;
-                case "v":
-                    event.preventDefault();
-                    pasteImage();
-                    return false;
                 default:
                     break;
+            }
+        }
+    });
+
+    window.addEventListener("paste", async function (e) {
+        if (e.clipboardData) {
+            const items = e.clipboardData.items;
+            if (!items) return;
+
+            let isImage = false;
+            for (let i = 0; i < items.length; i++) {
+                if (items[i].type.indexOf("image") !== -1) {
+                    let blob = items[i].getAsFile();
+                    let URLObj = window.URL || window.webkitURL;
+                    let source = URLObj.createObjectURL(blob);
+                    loadImage(source);
+                    isImage = true;
+                }
+            }
+            if (isImage == true) {
+                e.preventDefault();
             }
         }
     });
@@ -277,13 +292,26 @@ const initializeUI = () => {
     clearCanvas();
 }
 
+const loadImage = function (source) {
+    const mainCanvasElem = document.getElementById("main-canvas");
+    const context = mainCanvasElem.getContext("2d");
+
+    var pastedImage = new Image();
+    pastedImage.onload = function () {
+        mainCanvasElem.width = pastedImage.width;
+        mainCanvasElem.height = pastedImage.height;
+        context.drawImage(pastedImage, 0, 0);
+    };
+    pastedImage.src = source;
+}
+
 const openImage = (url) => {
     const mainCanvasElem = document.getElementById("main-canvas");
     if (mainCanvasElem && mainCanvasElem.getContext) {
         let context = mainCanvasElem.getContext("2d");
         context.clearRect(0, 0, mainCanvasElem.width, mainCanvasElem.height);
 
-        context.fillStyle = "white";
+        context.fillStyle = "rgba(0, 0, 0, 0)";
         context.fillRect(0, 0, mainCanvasElem.width, mainCanvasElem.height);
 
         let image = new Image();
@@ -297,30 +325,33 @@ const openImage = (url) => {
 const pasteImage = () => {
     const mainCanvasElem = document.getElementById("main-canvas");
 
-    try {
-        navigator.permissions.query({ name: "clipboard-read" }).then((result) => {
-            if (result.state == "granted" || result.state == "prompt") {
-                navigator.clipboard.read().then((data) => {
-                    data.forEach((item) => {
-                        if (item.types.includes("image/png")) {
-                            item.getType("image/png").then((blob) => {
-                                const context = mainCanvasElem.getContext("2d")
-                                const img = new Image()
-                                img.onload = (event) => {
-                                    URL.revokeObjectURL(event.target.src);
-                                    context.drawImage(event.target, 0, 0);
-                                }
-                                img.src = URL.createObjectURL(blob)
-                            });
-                        }
-                    });
+    navigator.permissions.query({ name: "clipboard-read" }).then((result) => {
+        if (result.state == "granted" || result.state == "prompt") {
+            navigator.clipboard.read().then((data) => {
+                data.forEach((item) => {
+                    if (item.types.includes("image/png")) {
+                        item.getType("image/png").then((blob) => {
+                            const context = mainCanvasElem.getContext("2d")
+                            const img = new Image()
+                            img.onload = (event) => {
+                                URL.revokeObjectURL(event.target.src);
+                                context.drawImage(event.target, 0, 0);
+                            }
+                            img.src = URL.createObjectURL(blob)
+                        });
+                    }
                 });
-            }
-        });
-    } catch (err) {
+            });
+        }
+    }).catch(err => {
+        console.log(err)
         // TODO: Firefox
+        let alert = document.getElementById("paste-alert");
+        alert.classList.remove("show");
+        alert.classList.add("show");
+        alert.style.display = "flex";
 
-    }
+    });
 }
 
 const saveImage = () => {
@@ -363,6 +394,12 @@ const setCanvasSize = () => {
     mainCanvasElem.setAttribute("height", h);
     mainCanvasElem.style.width = w + "px";
     mainCanvasElem.style.height = h + "px";
+
+    const subCanvasElem = document.getElementById("sub-canvas");
+    subCanvasElem.setAttribute("width", w);
+    subCanvasElem.setAttribute("height", h);
+    subCanvasElem.style.width = w + "px";
+    subCanvasElem.style.height = h + "px";
 }
 
 const storageAvailable = (type) => {
@@ -383,7 +420,3 @@ const storageAvailable = (type) => {
             (storage && storage.length !== 0);
     }
 }
-
-
-
-
