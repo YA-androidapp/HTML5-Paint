@@ -5,8 +5,24 @@
 // canvas.isDrawingMode = true;
 
 
-/* Free drawing */
 (function () {
+    /* Sidebar */
+    let sidebarToggler = document.getElementById('sidebarToggler');
+    let page = document.getElementsByTagName('main')[0];
+    let showSidebar = true;
+
+    sidebarToggler.addEventListener('click', () => {
+        if (showSidebar) {
+            page.style.cssText = 'margin-left: -250px';
+            showSidebar = false;
+        } else {
+            page.style.cssText = 'margin-left: 0px';
+            showSidebar = true;
+        }
+    });
+
+
+    /* Free drawing */
     var $ = function (id) { return document.getElementById(id) };
 
     var canvas = this.__canvas = new fabric.Canvas('c', {

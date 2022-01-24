@@ -1,195 +1,269 @@
 <!DOCTYPE html>
-<html>
+<html lang=ja class="h-100">
 
 <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title></title>
     <meta name="description" content="">
     <meta name="author" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <link rel="stylesheet" href="css/f.css">
 </head>
 
-<body>
+<body class="h-100 bg-light">
+    <main class="h-100">
+        <div class="page-wrapper d-flex flex-row h-100 w-100">
+            <nav class="sidebar bg-primary bg-gradient">
+                <div class="brand p-4">
+                    <h4>
+                        Sidabar Sample
+                    </h4>
+                </div>
+                <ul class="nav flex-column m-o p-3">
+                    <li class="nav-item mb-2">
+                        <a href="" class="nav-link">Static</a>
+                    </li>
+                    <li class="nav-item mb-2">
+                        <a href="" class="nav-link w-100 h-100">Dropdown</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="page-content">
+                <nav class="navbar px-3 bg-light border-bottom shadow-sm">
+                    <div class="navbar-brand toggle-menu">
+                        <button class="btn btn-light btn-sm" id="sidebarToggler">
+                            <i class="bi bi-list"></i>
+                        </button>
+                    </div>
+                    <ul class="navbar-nav d-flex flex-row">
+                        <li class="nav-item ml-3 text-muted">
+                            Home
+                        </li>
+                        <li class="nav-item ml-3 text-muted">
+                            Test
+                        </li>
+                        <li class="nav-item ml-3 text-muted">
+                            Login
+                        </li>
+                    </ul>
+                </nav>
+                <div class="content p-3">
+                    <div class="container-fuild pt-3">
+                        <div class="card">
+                            <div class="card-header">
+                            </div>
+                            <div class="card-body">
+                                <div class="card-text">
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, beatae
+                                        accusantium. Dolor corporis
+                                        accusamus omnis consectetur! Eum recusandae ducimus adipisci in laudantium
+                                        deleniti enim! Hic
+                                        corrupti modi sint odit impedit eligendi facilis earum iusto, laudantium magni
+                                        ad maxime soluta
+                                        quaerat id ab! Ullam nihil quos, ipsum minus harum nemo ratione asperiores at,
+                                        repellendus et dicta
+                                        quaerat vel autem nobis neque quibusdam maxime debitis reprehenderit ipsam quia
+                                        aut dolore
+                                        similique. Est, veniam eaque illo voluptatibus repellendus velit facere, iure
+                                        tempora dolorum
+                                        dolorem rem facilis distinctio incidunt quia doloribus illum quas voluptate,
+                                        laborum repellat? Nisi,
+                                        dignissimos rem unde quidem ratione deleniti consequuntur?
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 
     <div id="bd-wrapper">
         <canvas id="c" width="500" height="500" style="border:1px solid #aaa"></canvas>
+    </div>
 
-        <div style="display: inline-block; margin-left: 10px">
-            <button id="drawing-mode" class="btn btn-info">Cancel drawing mode</button><br>
-            <button id="clear-canvas" class="btn btn-info">Clear</button><br>
+    <div style="display: inline-block; margin-left: 10px">
+        <button id="drawing-mode" class="btn btn-info">Cancel drawing mode</button><br>
+        <button id="clear-canvas" class="btn btn-info">Clear</button><br>
 
-            <div id="drawing-mode-options">
-                <label for="drawing-mode-selector">Mode:</label>
-                <select id="drawing-mode-selector">
-                    <option>Pencil</option>
-                    <option>Circle</option>
-                    <option>Spray</option>
-                    <option>Pattern</option>
-                    <option>hline</option>
-                    <option>vline</option>
-                    <option>square</option>
-                    <option>diamond</option>
-                    <option>texture</option>
-                </select><br>
+        <div id="drawing-mode-options">
+            <label for="drawing-mode-selector">Mode:</label>
+            <select id="drawing-mode-selector">
+                <option>Pencil</option>
+                <option>Circle</option>
+                <option>Spray</option>
+                <option>Pattern</option>
+                <option>hline</option>
+                <option>vline</option>
+                <option>square</option>
+                <option>diamond</option>
+                <option>texture</option>
+            </select><br>
 
-                <label for="drawing-line-width">Line width:</label>
-                <span class="info">30</span><input type="range" value="30" min="0" max="150"
-                    id="drawing-line-width"><br>
+            <label for="drawing-line-width">Line width:</label>
+            <span class="info">30</span><input type="range" value="30" min="0" max="150" id="drawing-line-width"><br>
 
-                <label for="drawing-color">Line color:</label>
-                <input type="color" value="#005E7A" id="drawing-color"><br>
+            <label for="drawing-color">Line color:</label>
+            <input type="color" value="#005E7A" id="drawing-color"><br>
 
-                <label for="drawing-shadow-color">Shadow color:</label>
-                <input type="color" value="#005E7A" id="drawing-shadow-color"><br>
+            <label for="drawing-shadow-color">Shadow color:</label>
+            <input type="color" value="#005E7A" id="drawing-shadow-color"><br>
 
-                <label for="drawing-shadow-width">Shadow width:</label>
-                <span class="info">0</span><input type="range" value="0" min="0" max="50" id="drawing-shadow-width"><br>
+            <label for="drawing-shadow-width">Shadow width:</label>
+            <span class="info">0</span><input type="range" value="0" min="0" max="50" id="drawing-shadow-width"><br>
 
-                <label for="drawing-shadow-offset">Shadow offset:</label>
-                <span class="info">0</span><input type="range" value="0" min="0" max="50"
-                    id="drawing-shadow-offset"><br>
-            </div>
-        </div>
-
-        <div
-            style="display: inline-block; background: #f5f2f0; padding: 0 10px; margin-top: .5em; margin-left: 10px; margin-right: -5px">
-            <p>
-                <label>
-                    <input type="checkbox" id="hasControls" checked>
-                    <code>hasControls</code>
-                </label>
-            </p>
-            <p>
-                <label>
-                    <input type="checkbox" id="hasBorders" checked>
-                    <code>hasBorders</code>
-                </label>
-            </p>
-            <p>
-                <label>
-                    <input type="checkbox" id="visible" checked>
-                    <code>visible</code>
-                </label>
-            </p>
-            <p>
-                <label>
-                    <input type="checkbox" id="selectable" checked>
-                    <code>selectable</code>
-                </label>
-            </p>
-            <p>
-                <label>
-                    <input type="checkbox" id="evented" checked>
-                    <code>evented</code>
-                </label>
-            </p>
-            <p>
-                <label>
-                    <input type="checkbox" id="transparentCorners">
-                    <code>transparentCorners</code>
-                </label>
-            </p>
-            <p>
-                <label>
-                    <input type="checkbox" id="centeredScaling">
-                    <code>centeredScaling</code>
-                </label>
-            </p>
-            <p>
-                <label>
-                    <input type="checkbox" id="centeredRotation">
-                    <code>centeredRotation</code>
-                </label>
-            </p>
-            <p>
-                <label>
-                    <code>cornerStyle</code>
-                    <input type="radio" name="cornerStyle" value="rect" id="cornerStyle1">
-                    <input type="radio" name="cornerStyle" value="circle" id="cornerStyle2">
-                </label>
-            </p>
-            <p>
-                <label>
-                    <code>padding</code>
-                    <input type="range" id="padding" value="0" min="0" max="50" style="display: block">
-                </label>
-            </p>
-            <p>
-                <label>
-                    <code>cornerSize</code>
-                    <input type="range" id="cornerSize" value="12" min="1" max="50" style="display: block">
-                </label>
-            </p>
-            <p>
-                <label>
-                    <code>rotatingPointOffset</code>
-                    <input type="range" id="rotatingPointOffset" value="40" min="5" max="150" style="display: block">
-                </label>
-            </p>
-            <p>
-                <code>setControlVisible</code>
-            <p id="setControlVisible">
-                <label>
-                    TL<input type="checkbox" title="top-left control" name="tl" checked />
-                </label>
-                <label>
-                    BL<input type="checkbox" title="bottom-left control" name="bl" checked />
-                </label>
-                <label>
-                    TR<input type="checkbox" title="top-right control" name="tr" checked />
-                </label>
-                <label>
-                    BR<input type="checkbox" title="bottom-right control" name="br" checked />
-                </label>
-                <br />
-                <label>
-                    ML<input type="checkbox" title="middle-left control" name="ml" checked />
-                </label>
-                <label>
-                    MB<input type="checkbox" title="middle-bottom control" name="mb" checked />
-                </label>
-                <label>
-                    MR<input type="checkbox" title="middle-right control" name="mr" checked />
-                </label>
-                <label>
-                    MT<input type="checkbox" title="middle-top control" name="mt" checked />
-                </label>
-                <label>
-                    MTR<input type="checkbox" title="middle-top-rotate control" name="mtr" checked />
-                </label>
-            </p>
-            </p>
-            <p>
-                <label>
-                    <code>borderColor</code>
-                    <input type="color" id="borderColor" style="display: block">
-                </label>
-            </p>
-            <p>
-                <label>
-                    <code>cornerColor</code>
-                    <input type="color" id="cornerColor" style="display: block">
-                </label>
-            </p>
-            <p>
-                <label>
-                    <code>cornerStrokeColor</code>
-                    <input type="color" id="cornerStrokeColor" style="display: block">
-                </label>
-            </p>
-        </div>
-
-        <div class="controls">
-            <p>
-                <button id="copy">Copy Selected Objects</button>
-            </p>
-            <p>
-                <button id="paste">Paste Selected Objects</button>
-            </p>
+            <label for="drawing-shadow-offset">Shadow offset:</label>
+            <span class="info">0</span><input type="range" value="0" min="0" max="50" id="drawing-shadow-offset"><br>
         </div>
     </div>
+
+    <div
+        style="display: inline-block; background: #f5f2f0; padding: 0 10px; margin-top: .5em; margin-left: 10px; margin-right: -5px">
+        <p>
+            <label>
+                <input type="checkbox" id="hasControls" checked>
+                <code>hasControls</code>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="checkbox" id="hasBorders" checked>
+                <code>hasBorders</code>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="checkbox" id="visible" checked>
+                <code>visible</code>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="checkbox" id="selectable" checked>
+                <code>selectable</code>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="checkbox" id="evented" checked>
+                <code>evented</code>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="checkbox" id="transparentCorners">
+                <code>transparentCorners</code>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="checkbox" id="centeredScaling">
+                <code>centeredScaling</code>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="checkbox" id="centeredRotation">
+                <code>centeredRotation</code>
+            </label>
+        </p>
+        <p>
+            <label>
+                <code>cornerStyle</code>
+                <input type="radio" name="cornerStyle" value="rect" id="cornerStyle1">
+                <input type="radio" name="cornerStyle" value="circle" id="cornerStyle2">
+            </label>
+        </p>
+        <p>
+            <label>
+                <code>padding</code>
+                <input type="range" id="padding" value="0" min="0" max="50" style="display: block">
+            </label>
+        </p>
+        <p>
+            <label>
+                <code>cornerSize</code>
+                <input type="range" id="cornerSize" value="12" min="1" max="50" style="display: block">
+            </label>
+        </p>
+        <p>
+            <label>
+                <code>rotatingPointOffset</code>
+                <input type="range" id="rotatingPointOffset" value="40" min="5" max="150" style="display: block">
+            </label>
+        </p>
+        <p>
+            <code>setControlVisible</code>
+        <p id="setControlVisible">
+            <label>
+                TL<input type="checkbox" title="top-left control" name="tl" checked />
+            </label>
+            <label>
+                BL<input type="checkbox" title="bottom-left control" name="bl" checked />
+            </label>
+            <label>
+                TR<input type="checkbox" title="top-right control" name="tr" checked />
+            </label>
+            <label>
+                BR<input type="checkbox" title="bottom-right control" name="br" checked />
+            </label>
+            <br />
+            <label>
+                ML<input type="checkbox" title="middle-left control" name="ml" checked />
+            </label>
+            <label>
+                MB<input type="checkbox" title="middle-bottom control" name="mb" checked />
+            </label>
+            <label>
+                MR<input type="checkbox" title="middle-right control" name="mr" checked />
+            </label>
+            <label>
+                MT<input type="checkbox" title="middle-top control" name="mt" checked />
+            </label>
+            <label>
+                MTR<input type="checkbox" title="middle-top-rotate control" name="mtr" checked />
+            </label>
+        </p>
+        </p>
+        <p>
+            <label>
+                <code>borderColor</code>
+                <input type="color" id="borderColor" style="display: block">
+            </label>
+        </p>
+        <p>
+            <label>
+                <code>cornerColor</code>
+                <input type="color" id="cornerColor" style="display: block">
+            </label>
+        </p>
+        <p>
+            <label>
+                <code>cornerStrokeColor</code>
+                <input type="color" id="cornerStrokeColor" style="display: block">
+            </label>
+        </p>
+    </div>
+
+    <div class="controls">
+        <p>
+            <button id="copy">Copy Selected Objects</button>
+        </p>
+        <p>
+            <button id="paste">Paste Selected Objects</button>
+        </p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
 
     <script type="text/javascript" src="js/fabric.min.js"></script>
     <script type="text/javascript" src="js/f.js"></script>
