@@ -1,11 +1,11 @@
 /* Sidebar */
 .sidebar {
-    max-width: 250px;
-    min-width: 250px;
+    max-width: 320px;
+    min-width: 320px;
 }
 
 .sidebar .brand {
-    background-color: #0d6efdc9;
+    background-color: #212529cc;
     color: white;
 }
 
@@ -19,34 +19,15 @@ main {
 }
 
 /* Free drawing */
-
-#drawing-mode {
-    margin-bottom: 10px;
-    vertical-align: top;
-}
-
-#drawing-mode-options {
-    display: inline-block;
-    vertical-align: top;
-    margin-bottom: 10px;
-    margin-top: 10px;
-    background: #f5f2f0;
-    padding: 10px;
-}
-
 label {
     display: inline-block;
-    width: 130px;
+    width: 160px;
 }
 
 .info {
     display: inline-block;
     width: 25px;
     background: #ffc;
-}
-
-#bd-wrapper {
-    min-width: 1500px;
 }
 
 

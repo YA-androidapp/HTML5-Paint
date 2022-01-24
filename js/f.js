@@ -13,7 +13,7 @@
 
     sidebarToggler.addEventListener('click', () => {
         if (showSidebar) {
-            page.style.cssText = 'margin-left: -250px';
+            page.style.cssText = 'margin-left: -320px';
             showSidebar = false;
         } else {
             page.style.cssText = 'margin-left: 0px';
@@ -32,7 +32,6 @@
     fabric.Object.prototype.transparentCorners = false;
 
     var drawingModeEl = $('drawing-mode'),
-        drawingOptionsEl = $('drawing-mode-options'),
         drawingColorEl = $('drawing-color'),
         drawingShadowColorEl = $('drawing-shadow-color'),
         drawingLineWidthEl = $('drawing-line-width'),
@@ -46,11 +45,9 @@
         canvas.isDrawingMode = !canvas.isDrawingMode;
         if (canvas.isDrawingMode) {
             drawingModeEl.innerHTML = 'Cancel drawing mode';
-            drawingOptionsEl.style.display = '';
         }
         else {
             drawingModeEl.innerHTML = 'Enter drawing mode';
-            drawingOptionsEl.style.display = 'none';
         }
     };
 
