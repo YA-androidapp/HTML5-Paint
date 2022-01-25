@@ -18,6 +18,11 @@ main {
     transition: 0.3s all ease;
 }
 
+/* Header */
+li.nav-item {
+    cursor: pointer;
+}
+
 /* Free drawing */
 label {
     display: inline-block;

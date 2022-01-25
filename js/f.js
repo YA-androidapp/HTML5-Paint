@@ -37,9 +37,9 @@
         drawingLineWidthEl = $('drawing-line-width'),
         drawingShadowWidth = $('drawing-shadow-width'),
         drawingShadowOffset = $('drawing-shadow-offset'),
-        clearEl = $('clear-canvas');
+        menuNewEl = $('menu-new');
 
-    clearEl.onclick = function () { canvas.clear() };
+    menuNewEl.onclick = function () { canvas.clear() };
 
     drawingModeEl.onclick = function () {
         canvas.isDrawingMode = !canvas.isDrawingMode;
