@@ -9,6 +9,8 @@ window.addEventListener("DOMContentLoaded", (event) => {
     setCanvasSize();
 
     initialize();
+
+    initializeUI();
 });
 
 
@@ -327,13 +329,48 @@ const initialize = () => {
     };
 };
 
-const setCanvasSize = () => {
-    console.log("setCanvasSize");
+const formatDateTime = (date, format) => {
+    let year_str = date.getFullYear();
+    let month_str = ("0" + date.getMonth()).slice(-2);
+    let day_str = ("0" + date.getDate()).slice(-2);
+    let hour_str = ("0" + date.getHours()).slice(-2);
+    let minute_str = ("0" + date.getMinutes()).slice(-2);
+    let second_str = ("0" + date.getSeconds()).slice(-2);
 
-    const baseElem = document.getElementById("base");
-    console.log("baseElem", baseElem);
+    return format.replace(/YYYY/g, year_str)
+        .replace(/MM/g, month_str)
+        .replace(/DD/g, day_str)
+        .replace(/hh/g, hour_str)
+        .replace(/mm/g, minute_str)
+        .replace(/ss/g, second_str);
+}
+
+const initializeUI = () => {
+    document.getElementById("save").addEventListener("click", () => {
+        saveImage();
+    });
+}
+
+const saveImage = () => {
     const mainCanvasElem = document.getElementById("c");
-    console.log("mainCanvasElem", mainCanvasElem);
+
+    mainCanvasElem.toBlob(async (blob) => {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        document.body.appendChild(a);
+        a.download = formatDateTime(new Date(), "YYYYMMDDhhmmss") + ".png";
+        a.href = url;
+        a.click();
+        a.remove();
+        setTimeout(() => {
+            URL.revokeObjectURL(url);
+        }, 1E4);
+    });
+}
+
+const setCanvasSize = () => {
+    const baseElem = document.getElementById("base");
+    const mainCanvasElem = document.getElementById("c");
 
     const h = baseElem.clientHeight;
     const w = baseElem.clientWidth;
