@@ -6,9 +6,9 @@
 
 
 window.addEventListener("DOMContentLoaded", (event) => {
-    initialize();
-
     setCanvasSize();
+
+    initialize();
 });
 
 
@@ -334,27 +334,10 @@ const setCanvasSize = () => {
     console.log("baseElem", baseElem);
     const mainCanvasElem = document.getElementById("c");
     console.log("mainCanvasElem", mainCanvasElem);
-    const upperElem = document.getElementsByClassName("upper-canvas")[0];
-    console.log("upperElem", upperElem);
 
-    const parentElem = mainCanvasElem.parentElement;
-    console.log("parentElem", parentElem);
-
-    const h = 500; // baseElem.clientHeight;
-    const w = 1000; // baseElem.clientWidth;
-
-    parentElem.setAttribute("width", w);
-    parentElem.setAttribute("height", h);
-    parentElem.style.width = w + "px";
-    parentElem.style.height = h + "px";
+    const h = baseElem.clientHeight;
+    const w = baseElem.clientWidth;
 
     mainCanvasElem.setAttribute("width", w);
     mainCanvasElem.setAttribute("height", h);
-    mainCanvasElem.style.width = w + "px";
-    mainCanvasElem.style.height = h + "px";
-
-    upperElem.setAttribute("width", w);
-    upperElem.setAttribute("height", h);
-    upperElem.style.width = w + "px";
-    upperElem.style.height = h + "px";
 }
