@@ -40,7 +40,7 @@ const init = () => {
 
     mainCanvasElem.addEventListener("mousedown", function (e) {
         let checkElem = document.getElementById("side-bucket");
-        if (checkElem.checked) {
+        if (checkElem && checkElem.checked) {
             const x = e.offsetX || e.layerX;
             const y = e.offsetY || e.layerY;
             const hexColorCode = document.getElementById("side-color").value;
@@ -55,21 +55,21 @@ const init = () => {
 
     mainCanvasElem.addEventListener("mouseup", function (e) {
         let checkElem = document.getElementById("side-bucket");
-        if (!checkElem.checked) {
+        if (!checkElem || !checkElem.checked) {
             mouseUp(getPosition(e));
         }
     });
 
     mainCanvasElem.addEventListener("mousemove", function (e) {
         let checkElem = document.getElementById("side-bucket");
-        if (!checkElem.checked) {
+        if (!checkElem || !checkElem.checked) {
             mouseMove(getPosition(e));
         }
     });
 
     mainCanvasElem.addEventListener("touchstart", function (e) {
         let checkElem = document.getElementById("side-bucket");
-        if (checkElem.checked) {
+        if (checkElem && checkElem.checked) {
             const x = e.offsetX || e.layerX;
             const y = e.offsetY || e.layerY;
             const hexColorCode = document.getElementById("side-color").value;
@@ -86,7 +86,7 @@ const init = () => {
 
     mainCanvasElem.addEventListener("touchend", function (e) {
         let checkElem = document.getElementById("side-bucket");
-        if (!checkElem.checked) {
+        if (!checkElem || !checkElem.checked) {
             if (e.changedTouches.length == 1) {
                 mouseUp(getPosition(e.changedTouches[0]));
             }
@@ -97,7 +97,7 @@ const init = () => {
         e.preventDefault();
 
         let checkElem = document.getElementById("side-bucket");
-        if (!checkElem.checked) {
+        if (!checkElem || !checkElem.checked) {
             if (e.changedTouches.length == 1) {
                 mouseMove(getPosition(e.changedTouches[0]));
             }
