@@ -5,7 +5,14 @@
 // canvas.isDrawingMode = true;
 
 
-(function () {
+window.addEventListener("DOMContentLoaded", (event) => {
+    initialize();
+
+    setCanvasSize();
+});
+
+
+const initialize = () => {
     /* Sidebar */
     let sidebarToggler = document.getElementById('sidebarToggler');
     let page = document.getElementsByTagName('main')[0];
@@ -36,10 +43,7 @@
         drawingShadowColorEl = $('drawing-shadow-color'),
         drawingLineWidthEl = $('drawing-line-width'),
         drawingShadowWidth = $('drawing-shadow-width'),
-        drawingShadowOffset = $('drawing-shadow-offset'),
-        menuNewEl = $('menu-new');
-
-    menuNewEl.onclick = function () { canvas.clear() };
+        drawingShadowOffset = $('drawing-shadow-offset');
 
     drawingModeEl.onclick = function () {
         canvas.isDrawingMode = !canvas.isDrawingMode;
@@ -321,4 +325,36 @@
             });
         });
     };
-})();
+};
+
+const setCanvasSize = () => {
+    console.log("setCanvasSize");
+
+    const baseElem = document.getElementById("base");
+    console.log("baseElem", baseElem);
+    const mainCanvasElem = document.getElementById("c");
+    console.log("mainCanvasElem", mainCanvasElem);
+    const upperElem = document.getElementsByClassName("upper-canvas")[0];
+    console.log("upperElem", upperElem);
+
+    const parentElem = mainCanvasElem.parentElement;
+    console.log("parentElem", parentElem);
+
+    const h = 500; // baseElem.clientHeight;
+    const w = 1000; // baseElem.clientWidth;
+
+    parentElem.setAttribute("width", w);
+    parentElem.setAttribute("height", h);
+    parentElem.style.width = w + "px";
+    parentElem.style.height = h + "px";
+
+    mainCanvasElem.setAttribute("width", w);
+    mainCanvasElem.setAttribute("height", h);
+    mainCanvasElem.style.width = w + "px";
+    mainCanvasElem.style.height = h + "px";
+
+    upperElem.setAttribute("width", w);
+    upperElem.setAttribute("height", h);
+    upperElem.style.width = w + "px";
+    upperElem.style.height = h + "px";
+}
