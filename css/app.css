@@ -1,11 +1,12 @@
 /* Copyright (c) 2022 YA-androidapp(https://github.com/YA-androidapp) All rights reserved. */
 
 html, body {
+    font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
     height: 100%;
     min-height: 800px;
 }
 
-div#content-container{
+div#content-container {
     height: calc(95% - 73px);
     min-height: 687px;
 }
@@ -18,13 +19,17 @@ div#content-col {
     height: 100%;
 }
 
-div.dropdown{
+div.dropdown {
     cursor: pointer;
 }
 
 div#sidebar {
     height: 100%;
     width: 280px;
+}
+
+input#side-filltext-text {
+    width: 70%;
 }
 
 /* Alerts */
@@ -53,24 +58,24 @@ div#sidebar {
 
 /* Canvas */
 canvas {
-    background-color:#FFFFFF;
+    background-color: #FFFFFF;
     border: 1px solid #000000;
 
     position: absolute;
-    left:0;
-    top:0;
+    left: 0;
+    top: 0;
     box-sizing: border-box;
     padding: 0;
     margin: 0;
 }
 
 canvas#main-canvas {
-    background-color:rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
     z-index: 1;
 }
 
 canvas#sub-canvas {
-    background-color:rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
     z-index: 10;
     pointer-events: none;
 }
