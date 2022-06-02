@@ -32,6 +32,10 @@ input#side-filltext-text {
     width: 70%;
 }
 
+select#side-filltext-fontname {
+    width: 90%;
+}
+
 /* Alerts */
 .alert {
     display: none;
