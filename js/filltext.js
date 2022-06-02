@@ -1,7 +1,7 @@
 // Copyright (c) 2022 YA-androidapp(https://github.com/YA-androidapp) All rights reserved.
 
 
-const fonts = '"游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif';
+const defaultFontFamily = '"游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif';
 
 
 window.addEventListener("DOMContentLoaded", (event) => {
@@ -33,6 +33,18 @@ const initializeFillText = () => {
     document.getElementById("side-filltext-size").addEventListener("change", (event) => {
         previewText();
     });
+
+    document.getElementById("side-filltext-fontname").addEventListener("change", (event) => {
+        previewText();
+    });
+}
+
+const getSelectedFont = () => {
+    if (document.getElementById("side-filltext-fontname").value == "") {
+        return ''
+    } else {
+        return '"' + document.getElementById("side-filltext-fontname").value + '", ';
+    }
 }
 
 const previewText = () => {
@@ -48,7 +60,7 @@ const previewText = () => {
         mainContext.clearRect(0, 0, subCanvasElem.width, subCanvasElem.height);
 
         mainContext.fillStyle = document.getElementById("side-color").value;
-        mainContext.font = 'normal ' + size + 'pt ' + fonts;
+        mainContext.font = 'normal ' + size + 'pt ' + getSelectedFont() + defaultFontFamily;
         mainContext.strokeStyle = document.getElementById("side-color").value;
 
         mainContext.fillText(text, x, y);
@@ -67,7 +79,7 @@ const reflectText = () => {
 
             let mainContext = mainCanvasElem.getContext("2d");
             mainContext.fillStyle = document.getElementById("side-color").value;
-            mainContext.font = 'normal ' + size + 'pt ' + fonts;
+            mainContext.font = 'normal ' + size + 'pt ' + getSelectedFont() + defaultFontFamily;
             mainContext.strokeStyle = document.getElementById("side-color").value;
 
             mainContext.fillText(text, x, y);
