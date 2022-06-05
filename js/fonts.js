@@ -249,7 +249,7 @@ const fontNames = [
     "MS PGothic",
     "MS PMincho",
     "ＭＳ Ｐゴシック",
-    "ＭＳ Ｐ明朝"
+    "ＭＳ Ｐ明朝",
     "MS Sans Serif",
     "MS Serif",
     "MS UI Gothic",
@@ -268,6 +268,8 @@ const fontNames = [
     "Nirmala UI Semilight",
     "Nirmala UI",
     "Noteworthy",
+    "Noto Sans JP",
+    "Noto Serif JP",
     "NSimSun",
     "Optima",
     "Oriya MN",
@@ -469,7 +471,7 @@ const fontNames = [
     "筑紫A丸ゴシック",
     "筑紫B丸ゴシック",
     "黒体-簡",
-    "黒体-繁",
+    "黒体-繁"
 ];
 
 const getAvailableFonts = () => {
